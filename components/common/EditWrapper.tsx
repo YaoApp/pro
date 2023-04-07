@@ -6,6 +6,8 @@ import type { Component } from '@/components/types'
 
 export interface IEditWrapper extends InputProps, Component.PropsEditComponent {}
 
+export interface IEditComponent extends Omit<IEditWrapper, '__bind' | '__name' | 'itemProps'> {}
+
 const Index = (Component: FC<any>, props: IEditWrapper) => {
 	const { __bind, __name, itemProps, ...rest_props } = props
 

@@ -23,15 +23,3 @@ System.set('app:react/jsx-runtime', { ...JsxRuntime })
 System.set('app:react-dom', { default: ReactDom, __useDefault: true })
 System.set('app:react-dom/client', { default: ReactDomClient, __useDefault: true })
 ```
-
-对于使用了`default`的systemjs module，在编写外部组件的时候请使用:
-
-```tsx
-// right
-import Test from 'test'
-
-Test.log()
-
-// error
-import { log } from 'test'
-```

@@ -4,7 +4,7 @@ const header_height = '24px'
 const detail_height = `calc(100% - ${header_height})`
 const padding = '0 12px'
 
-export default makeStyles()((_theme, _params, classes) => ({
+export default makeStyles()({
 	local: {
 		width: 210,
 		height: 72,
@@ -31,4 +31,4 @@ export default makeStyles()((_theme, _params, classes) => ({
 		height: detail_height,
 		padding
 	}
-}))
+})

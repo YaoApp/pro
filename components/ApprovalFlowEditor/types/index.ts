@@ -5,7 +5,7 @@ export interface IPropsApprovalFlowEditor extends IEditComponent {
 	approvalPersonsApi: string
 	data: {
 		nodes: Array<Node.Metadata & { data: ApprovalFlowEditor.ApprovaltemProps }>
-		edges: Array<Edge.Metadata>
+		edges: Array<Edge.Metadata & Edge.Label>
 	}
 }
 
@@ -14,10 +14,9 @@ export interface IPropsApprovalItem {
 }
 
 export namespace ApprovalFlowEditor {
-      export interface ApprovaltemProps {
+	export interface ApprovaltemProps {
 		label: string
-            type: 'initor' | 'approval' | 'copy'
+		type: 'initor' | 'approval' | 'copy'
 		title?: string
-		status: 'approve' | 'reject' | 'unapprove'
 	}
 }

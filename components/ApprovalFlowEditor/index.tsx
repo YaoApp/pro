@@ -10,7 +10,7 @@ import type { IPropsApprovalFlowEditor } from './types'
 const Index = (props: IPropsApprovalFlowEditor) => {
 	const { conatiner, g } = useGraph()
 
-	return <div ref={conatiner}></div>
+	return <div style={{ width: '100%' }} ref={conatiner}></div>
 }
 
 export default memo((props: IEditWrapper) => EditWrapper(Index, props)())

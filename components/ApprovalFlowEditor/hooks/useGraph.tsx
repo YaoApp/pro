@@ -1,12 +1,16 @@
 import { useEffect, useRef } from 'react'
+import { createRoot } from 'react-dom/client'
 
 import { Graph } from '@antv/x6'
 
+import { Button } from '../components'
 import data from '../data'
 
 export default () => {
 	const conatiner = useRef<HTMLDivElement>(null)
 	const g = useRef<Graph>()
+
+	console.log('123')
 
 	useEffect(() => {
 		if (!conatiner.current) return
@@ -15,7 +19,14 @@ export default () => {
 			container: conatiner.current,
 			height: 600,
 			panning: true,
-			interacting: { nodeMovable: false }
+			autoResize: true,
+			interacting: { nodeMovable: false },
+			onEdgeLabelRendered: (args) => {
+				const { selectors } = args
+				const content = selectors.foContent as HTMLDivElement
+
+				if (content) createRoot(content).render(<Button></Button>)
+			}
 		})
 
 		graph.fromJSON(data)
