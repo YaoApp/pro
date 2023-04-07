@@ -1,0 +1,18 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"lib": ["ESNEXT", "DOM"],
+		"moduleResolution": "Node",
+		"declaration": false,
+		"strict": true,
+		"baseUrl": ".",
+		"esModuleInterop": true,
+		"paths": { "@/*": ["./*"] },
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"jsx": "react-jsx"
+	},
+	"include": ["components", "typings.d.ts"]
+}

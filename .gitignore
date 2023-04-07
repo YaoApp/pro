@@ -1,0 +1,17 @@
+# dependencies
+node_modules
+npm-debug.log*
+package-lock.json
+
+# production
+**/dist
+
+# misc
+.DS_Store
+.idea
+.vscode
+.svn
+.swc
+
+# 一些临时文件
+**/.tmp
