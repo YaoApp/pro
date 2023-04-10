@@ -10,12 +10,13 @@ export default makeStyles()({
 		height: 72,
 		backgroundColor: 'var(--color_bg_menu)',
 		borderRadius: 'var(--radius)',
-		overflow: 'hidden',
-		outline: '1px solid transparent',
-
-		'&:hover': {
-			outline: '1px solid var(--color_text)'
-		}
+            overflow: 'hidden',
+            boxShadow: 'var(--shadow)',
+            border:'1px solid transparent',
+            
+            '&:hover': {
+                  border:'1px solid var(--color_text)'
+            }
 	},
 	header_wrap: {
 		height: header_height,
@@ -29,6 +30,6 @@ export default makeStyles()({
 	},
 	detail_wrap: {
 		height: detail_height,
-		padding
+		padding,
 	}
 })

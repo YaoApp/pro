@@ -1,5 +1,6 @@
 const { defineConfig } = require('@rspack/cli')
 const { resolve } = require('path')
+const externals = require('./build/externals')
 
 module.exports = defineConfig({
 	entry: `./components/${process.env.NAME}/index.tsx`,
@@ -15,20 +16,7 @@ module.exports = defineConfig({
 			'@': resolve(process.cwd())
 		}
 	},
-	externals: {
-		react: 'react',
-		'react-dom': 'react-dom',
-		'react-dom/client': 'react-dom/client',
-		'react/jsx-runtime': 'react/jsx-runtime',
-		antd: 'antd',
-		tsyringe: 'tsyringe',
-		mobx: 'mobx',
-		'mobx-react-lite': 'mobx-react-lite',
-		'fast-equals': 'fast-equals',
-		'@antv/x6': '@antv/x6',
-		'@antv/x6-react-shape': '@antv/x6-react-shape',
-		'tss-react': 'tss-react'
-	},
+	externals,
 	watchOptions: {
 		ignored: /node_modules/
 	},

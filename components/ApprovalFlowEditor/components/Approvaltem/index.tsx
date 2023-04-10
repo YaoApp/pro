@@ -1,16 +1,16 @@
-import cx from 'classix'
+import { cx } from 'classix'
 
 import { memo } from '@/components/common'
 
 import { MApprovalType } from '../../utils'
 import useStyles from './styles'
 
-import type { IPropsApprovalItem, ApprovalFlowEditor } from '../../types'
+import type { IPropsApprovalItem, AFE } from '../../types'
 
 const Index = (props: IPropsApprovalItem) => {
 	const { node } = props
 	const { classes } = useStyles()
-	const { label, type, title } = node.getData<ApprovalFlowEditor.ApprovaltemProps>()
+	const { label, type } = node.getData<AFE.RawDataItem>()
 
 	const Icon = MApprovalType[type].icon
 
@@ -20,7 +20,7 @@ const Index = (props: IPropsApprovalItem) => {
 				<span className='icon_wrap flex justify_center align_center mr_2'>
 					<Icon size={12} weight='fill'></Icon>
 				</span>
-				<span className='text'> {title ?? MApprovalType[type].text}</span>
+				<span className='text'> {MApprovalType[type].text}</span>
 			</div>
 			<div className={cx('w_100 border_box flex align_center', classes.detail_wrap)}>
 				<span className='label'>{label}</span>

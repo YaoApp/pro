@@ -1,70 +1,34 @@
-import { Markup } from '@antv/x6'
+import { nanoid } from 'nanoid'
 
-import type { IPropsApprovalFlowEditor } from './types'
-
-const common_edge_options = {
-	label: { position: 0 },
-	defaultLabel: {
-		markup: Markup.getForeignObjectMarkup(),
-		attrs: {
-			fo: {
-				width: 24,
-				height: 24,
-				x: -12,
-				y: (150 - 72 - 24) / 2 - 2
-			}
-		}
+export default [
+	{
+		id: nanoid(),
+		uid: 0,
+		label: '王总',
+		type: 'initor'
 	},
-	attrs: {
-		line: {
-			stroke: 'var(--color_border)'
-		}
+	{
+		id: nanoid(),
+		uid: 1,
+		label: '张三',
+		type: 'approval'
+	},
+	{
+		id: nanoid(),
+		uid: 2,
+		label: '李四',
+		type: 'approval'
+	},
+	{
+		id: nanoid(),
+		uid: 3,
+		label: '王五',
+		type: 'approval'
+	},
+	{
+		id: nanoid(),
+		uid: 4,
+		label: '张麻子',
+		type: 'approval'
 	}
-}
-
-export default {
-	nodes: [
-		{
-			shape: 'Approvaltem',
-			id: 'node1',
-			x: 0,
-			y: 50,
-			data: {
-				label: '王总',
-				type: 'initor'
-			}
-		},
-		{
-			shape: 'Approvaltem',
-			id: 'node2',
-			x: 0,
-			y: 200,
-			data: {
-				label: '张三',
-				type: 'approval'
-			}
-		},
-		{
-			shape: 'Approvaltem',
-			id: 'node3',
-			x: 0,
-			y: 350,
-			data: {
-				label: '李四',
-				type: 'copy'
-			}
-		}
-	],
-	edges: [
-		{
-			source: 'node1',
-			target: 'node2',
-			...common_edge_options
-		},
-		{
-			source: 'node2',
-			target: 'node3',
-			...common_edge_options
-		}
-	]
-} as IPropsApprovalFlowEditor['data']
+]
