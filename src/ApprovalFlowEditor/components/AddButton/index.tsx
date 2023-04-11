@@ -3,7 +3,7 @@ import { ConfigProvider, Popover } from 'antd'
 import { cx } from 'classix'
 import { useState } from 'react'
 
-import { memo } from '@/components/common'
+import { memo } from '@/common'
 import { Plus, User } from '@phosphor-icons/react'
 
 import useStyles from './styles'
@@ -44,7 +44,8 @@ const Index = (props: IPropsAddButton) => {
 
 	return (
 		<ConfigProvider prefixCls='xgen'>
-			<Popover
+                  <Popover
+                        overlayClassName={classes.popover}
 				open={open}
 				content={Options}
 				trigger='click'

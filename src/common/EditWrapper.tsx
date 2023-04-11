@@ -1,8 +1,8 @@
-import { Item } from '@/components/common'
+import { Item } from '@/common'
 
 import type { InputProps } from 'antd'
 import type { FC } from 'react'
-import type { Component } from '@/components/types'
+import type { Component } from '@/types'
 
 export interface IEditWrapper extends InputProps, Component.PropsEditComponent {}
 

@@ -1,6 +1,6 @@
 import { cx } from 'classix'
 
-import { memo } from '@/components/common'
+import { memo } from '@/common'
 
 import { MApprovalType } from '../../utils'
 import useStyles from './styles'

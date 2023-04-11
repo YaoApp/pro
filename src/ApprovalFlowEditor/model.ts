@@ -52,9 +52,9 @@ export default class Index {
 		const diff_nodes = diff(this.flow_data.nodes, flow_data.nodes)
 		const diff_edges = diff(this.flow_data.edges, flow_data.edges)
 
-		console.log(toJS(this.flow_data.nodes), toJS(flow_data.nodes))
+		console.log(toJS(this.flow_data.edges), toJS(flow_data.edges))
 
-		console.log(diff_nodes)
+		// console.log(diff_nodes)
 		console.log(diff_edges)
 	}
 

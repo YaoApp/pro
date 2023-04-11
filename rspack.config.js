@@ -3,9 +3,9 @@ const { resolve } = require('path')
 const externals = require('./build/externals')
 
 module.exports = defineConfig({
-	entry: `./components/${process.env.NAME}/index.tsx`,
+	entry: `./src/index.ts`,
 	output: {
-		path: resolve(`../xgen-dev-app/public/components/${process.env.NAME}`),
+		// path: resolve(`../xgen-dev-app/public/components/${process.env.NAME}`),
 		filename: 'index.js',
 		library: {
 			type: 'amd'
@@ -13,7 +13,7 @@ module.exports = defineConfig({
 	},
 	resolve: {
 		alias: {
-			'@': resolve(process.cwd())
+			'@': resolve(`${process.cwd()}/src`)
 		}
 	},
 	externals,

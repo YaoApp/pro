@@ -1,4 +1,4 @@
-import { makeStyles } from '@/components/common'
+import { makeStyles } from '@/common'
 
 const header_height = '24px'
 const detail_height = `calc(100% - ${header_height})`

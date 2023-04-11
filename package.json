@@ -6,10 +6,8 @@
       "author": "Wendao",
       "license": "Yao Commercial License",
       "scripts": {
-            "dev": "rollup --c rollup.dev.ts --configPlugin swc3 -w",
-            "build": "rollup --c rollup.build.ts --configPlugin swc3",
-            "dev:AFE": "cross-env NAME=ApprovalFlowEditor rspack --mode=development --watch",
-            "build:AFE": "cross-env NAME=ApprovalFlowEditor rspack build"
+            "dev": "rspack --mode=development --watch",
+            "build": "rspack build"
       },
       "dependencies": {
             "@antv/x6": "^2.9.4",

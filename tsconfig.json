@@ -9,10 +9,10 @@
 		"strict": true,
 		"baseUrl": ".",
 		"esModuleInterop": true,
-		"paths": { "@/*": ["./*"] },
+		"paths": { "@/*": ["./src/*"] },
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"jsx": "react-jsx"
 	},
-	"include": ["components", "typings.d.ts"]
+	"include": ["src", "typings.d.ts"]
 }

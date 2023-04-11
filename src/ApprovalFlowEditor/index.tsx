@@ -3,12 +3,12 @@ import './utils/registerNodes'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect } from 'react'
 
-import { EditWrapper, memo } from '@/components/common'
+import { EditWrapper, memo } from '@/common'
 
 import data from './data'
 import { useGraph } from './hooks'
 
-import type { IEditWrapper } from '@/components/common'
+import type { IEditWrapper } from '@/common'
 import type { IPropsApprovalFlowEditor, AFE } from './types'
 
 const Index = (props: IPropsApprovalFlowEditor) => {
