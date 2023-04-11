@@ -1,13 +1,16 @@
 {
-      "name": "@yaoapps/pro",
+      "name": "@yaoapp/pro",
       "version": "1.0.0",
       "description": "",
       "keywords": [],
       "author": "Wendao",
       "license": "Yao Commercial License",
+      "source": "src/index.ts",
+      "module": "dist/index.js",
+      "types": "dist/index.d.ts",
       "scripts": {
             "dev": "rspack --mode=development --watch",
-            "build": "rspack build"
+            "build": "rspack build && tsc"
       },
       "dependencies": {
             "@antv/x6": "^2.9.4",
