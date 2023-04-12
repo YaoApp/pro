@@ -18,17 +18,5 @@ export default [
 		uid: 2,
 		label: '李四',
 		type: 'approval'
-	},
-	{
-		id: nanoid(),
-		uid: 3,
-		label: '王五',
-		type: 'approval'
-	},
-	{
-		id: nanoid(),
-		uid: 4,
-		label: '张麻子',
-		type: 'approval'
 	}
 ]

@@ -1,1 +1,3 @@
-export { default as ApprovalFlowEditor } from './ApprovalFlowEditor'
+import { default as ApprovalFlowEditor } from './ApprovalFlowEditor'
+
+export { ApprovalFlowEditor }

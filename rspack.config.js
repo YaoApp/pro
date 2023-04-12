@@ -2,10 +2,12 @@ const { defineConfig } = require('@rspack/cli')
 const { resolve } = require('path')
 const externals = require('./build/externals')
 
+const is_prod = process.env.MODE === 'prod'
+
 module.exports = defineConfig({
 	entry: `./src/index.ts`,
 	output: {
-		// path: resolve(`../xgen-dev-app/public/components/${process.env.NAME}`),
+		clean: is_prod,
 		filename: 'index.js',
 		library: {
 			type: 'amd'
@@ -16,6 +18,7 @@ module.exports = defineConfig({
 			'@': resolve(`${process.cwd()}/src`)
 		}
 	},
+	devtool: false,
 	externals,
 	watchOptions: {
 		ignored: /node_modules/

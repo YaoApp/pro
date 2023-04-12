@@ -1,6 +1,6 @@
 import { cx } from 'classix'
 
-import { memo } from '@/common'
+import { node_memo } from '@/common'
 
 import { MApprovalType } from '../../utils'
 import useStyles from './styles'
@@ -29,4 +29,4 @@ const Index = (props: IPropsApprovalItem) => {
 	)
 }
 
-export default memo(Index)
+export default node_memo(Index)

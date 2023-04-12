@@ -1,6 +1,7 @@
 import { Markup } from '@antv/x6'
 
 export const getEdgeOptions = (index: number) => ({
+	shape: 'edge',
 	label: { position: 0, data: { index } },
 	defaultLabel: {
 		markup: Markup.getForeignObjectMarkup(),

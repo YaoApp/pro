@@ -23,6 +23,7 @@ export default (namespace: string) => {
 			height: 600,
 			autoResize: true,
 			interacting: false,
+			mousewheel: true,
 			onEdgeLabelRendered: (args) => {
 				const { edge, selectors, label } = args
 				const { source, target } = edge
@@ -40,7 +41,7 @@ export default (namespace: string) => {
 			}
 		})
 
-		graph.use(new Scroller({ graph, enabled: true }))
+		graph.use(new Scroller({ graph, enabled: true, pannable: true }))
 
 		x.graph = graph
 		g.current = graph
@@ -67,10 +68,10 @@ export default (namespace: string) => {
 		if (!g.current || mounted) return
 
 		g.current.fromJSON(x.flow_data)
-		g.current.positionContent('top', { padding: { top: 50 } })
+		g.current.positionContent('top')
 
 		if (x.flow_data?.nodes) setMounted(true)
 	}, [x.flow_data])
 
-	return { x, c, g }
+	return { x, c }
 }

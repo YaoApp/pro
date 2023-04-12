@@ -1,6 +1,15 @@
+import { DagreLayout } from '@antv/layout'
+
 import { getEdgeOptions } from '../common'
 
 import type { AFE } from '../types'
+
+const dagre = new DagreLayout({
+	type: 'dagre',
+	rankdir: 'TB',
+	ranksep: 26,
+	nodeSize: [210, 72]
+})
 
 export default (raw_data: AFE.RawData) => {
 	const flow_data: AFE.FlowData = { nodes: [], edges: [] }
@@ -12,8 +21,6 @@ export default (raw_data: AFE.RawData) => {
 		flow_data.nodes.push({
 			shape: 'Approvaltem',
 			id: source,
-			x: 0,
-			y: index * 150 + 50,
 			data: item
 		})
 
@@ -30,5 +37,6 @@ export default (raw_data: AFE.RawData) => {
 		}
 	})
 
-	return flow_data
+	// @ts-ignore
+	return dagre.layout(flow_data) as AFE.FlowData
 }

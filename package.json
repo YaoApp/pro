@@ -5,14 +5,16 @@
       "keywords": [],
       "author": "Wendao",
       "license": "Yao Commercial License",
-      "source": "src/index.ts",
-      "module": "dist/index.js",
+      "main": "dist/index.js",
       "types": "dist/index.d.ts",
       "scripts": {
-            "dev": "rspack --mode=development --watch",
-            "build": "rspack build && tsc"
+            "tsc": "tsc",
+            "dev": "cross-env MODE=dev rspack build --watch",
+            "dev:env": "rspack --mode=development --watch",
+            "build": "cross-env MODE=prod rspack build && tsc"
       },
       "dependencies": {
+            "@antv/layout": "^0.3.20",
             "@antv/x6": "^2.9.4",
             "@antv/x6-plugin-scroller": "^2.0.8",
             "@antv/x6-react-shape": "^2.1.1",
@@ -31,11 +33,12 @@
             "nanoid": "^4.0.2",
             "react": "^18.2.0",
             "react-dom": "^18.2.0",
+            "ts-pattern": "^4.2.2",
             "tss-react": "^4.8.2",
             "tsyringe": "^4.7.0"
       },
       "devDependencies": {
-            "@rspack/cli": "^0.1.6",
+            "@rspack/cli": "^0.1.7",
             "@types/lodash-es": "^4.17.7",
             "@types/react": "^18.0.33",
             "@types/react-dom": "^18.0.11",
