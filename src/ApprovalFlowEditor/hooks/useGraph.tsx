@@ -23,20 +23,13 @@ export default (namespace: string) => {
 			height: 600,
 			autoResize: true,
 			interacting: false,
-			mousewheel: true,
 			onEdgeLabelRendered: (args) => {
-				const { edge, selectors, label } = args
+				const { edge, selectors } = args
 				const { source, target } = edge
 				const content = selectors.foContent as HTMLDivElement
 
 				if (content) {
-					createRoot(content).render(
-						<AddButton
-							{...{ namespace, source, target }}
-							emitter={x.emitter}
-							index={label.data.index}
-						/>
-					)
+					createRoot(content).render(<AddButton {...{ namespace, source, target }} id={edge.id} />)
 				}
 			}
 		})
@@ -68,7 +61,7 @@ export default (namespace: string) => {
 		if (!g.current || mounted) return
 
 		g.current.fromJSON(x.flow_data)
-		g.current.positionContent('top', { padding: { top: 72 } })
+		g.current.positionContent('top', { padding: { top: 50 } })
 
 		if (x.flow_data?.nodes) setMounted(true)
 	}, [x.flow_data])

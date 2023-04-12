@@ -2,10 +2,9 @@ import Emittery from 'emittery'
 import { diff } from 'just-diff'
 import { makeAutoObservable, reaction, toJS } from 'mobx'
 import { nanoid } from 'nanoid'
-import { match } from 'ts-pattern'
 import { injectable } from 'tsyringe'
 
-import { chunkDiff, mergDiff } from '@/common/utils'
+import { handleDiffNodes } from '@/common/utils'
 
 import { transform } from './utils'
 
@@ -19,24 +18,29 @@ export default class Index {
 	namespace = ''
 	raw_data = [] as AFE.RawData
 	flow_data = {} as AFE.FlowData
-	current_operation = '' as 'insert' | 'remove' | 'update' | ''
+	current_operation = '' as 'insert' | 'remove' | 'update'
 
 	constructor() {
 		makeAutoObservable(this, {}, { autoBind: true })
-
-		this.reactions()
 	}
 
 	init(namespace: string) {
+		window[`${namespace}_AFE`] = {
+			emitter: this.emitter
+		}
+
 		this.namespace = namespace
 
 		this.on()
+		this.reactions()
 	}
 
 	private reactions() {
 		reaction(
 			() => this.raw_data,
 			(v) => {
+				// this.getFlowData(v)
+
 				if (this.flow_data.nodes) {
 					this.getDiffData(v)
 				} else {
@@ -46,67 +50,38 @@ export default class Index {
 		)
 	}
 
+	private transform(v: AFE.RawData) {
+		return transform(this.namespace, v)
+	}
+
 	private getFlowData(v: AFE.RawData) {
-		this.flow_data = transform(v)
+		this.flow_data = this.transform(v)
 	}
 
 	private getDiffData(v: AFE.RawData) {
 		if (!this.current_operation) return
 
-		const flow_data = transform(toJS(v))
-
-		const nodes = this.graph.getNodes()
+		const flow_data = this.transform(v)
 		const diff_nodes = diff(this.flow_data.nodes, flow_data.nodes)
 		const diff_edges = diff(this.flow_data.edges, flow_data.edges)
-		const chunk_diff_nodes = chunkDiff(diff_nodes)
-		// const chunk_diff_edges = chunkDiff(diff_edges)
-
-		// console.log(diff_nodes, chunk_diff_nodes)
-		console.log(diff_edges)
 
 		this.graph.batchUpdate(() => {
-			match(this.current_operation)
-				.with('insert', () => {
-					Object.keys(chunk_diff_nodes).forEach((index) => {
-						const diff_items = chunk_diff_nodes[index]
-						const target = nodes.at(Number(index))
-
-						if (target) {
-							const new_id = diff_items[0].value
-							const changed_node = this.graph.updateCellId(target, new_id)
-
-							diff_items.shift()
-
-							changed_node.setData(mergDiff(diff_items))
-						} else {
-							this.graph.addNode(diff_items[0].value)
-						}
-					})
-
-					diff_edges.forEach((item) => {
-						match(item.op)
-							.with('add', () => {
-								this.graph.addEdge(item.value)
-							})
-							.with('replace', () => {
-								const target_edge = nodes.at(Number(item.path[0]))!
-								const key = item.path[1]
-
-								target_edge.prop(key, item.value)
-							})
-							.otherwise(() => {})
-					})
-				})
-				.with('remove', () => {})
-				.with('update', () => {})
-				.otherwise(() => {})
+			handleDiffNodes({
+				graph: this.graph,
+				diff_nodes,
+				diff_edges,
+				operation: this.current_operation,
+				flow_data_nodes: toJS(this.flow_data.nodes)
+			})
 		})
 
 		this.flow_data = flow_data
 	}
 
-	private insert(index: number) {
+	private insert(id: string) {
 		this.current_operation = 'insert'
+
+		const index = this.graph.getEdges().findIndex((item) => item.id === id)
 
 		this.raw_data.splice(index + 1, 0, {
 			id: nanoid(),
@@ -118,7 +93,15 @@ export default class Index {
 		this.raw_data = toJS(this.raw_data)
 	}
 
-	private remove(index: number) {}
+	private remove(id: string) {
+		this.current_operation = 'remove'
+
+		const index = this.raw_data.findIndex((item) => item.id === id)
+
+		this.raw_data.splice(index, 1)
+
+		this.raw_data = toJS(this.raw_data)
+	}
 
 	on() {
 		this.emitter.on(`${this.namespace}/afe/insert`, this.insert)

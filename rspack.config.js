@@ -10,7 +10,7 @@ module.exports = defineConfig({
 		clean: is_prod,
 		filename: 'index.js',
 		library: {
-			type: 'amd'
+			type: 'umd'
 		}
 	},
 	resolve: {

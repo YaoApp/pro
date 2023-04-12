@@ -1,4 +1,6 @@
-export default (arr: Array<{ op: 'add' | 'replace' | 'remove'; path: Array<any>; value: any }>) => {
+import type { DiffItem } from '@/types'
+
+export default (arr: Array<DiffItem>) => {
 	const result = {} as any
 	let currentPath = null as null | number
 	let currentChunk = []

@@ -10,8 +10,8 @@
       "scripts": {
             "tsc": "tsc",
             "dev": "cross-env MODE=dev rspack build --watch",
-            "dev:env": "rspack --mode=development --watch",
-            "build": "cross-env MODE=prod rspack build && tsc"
+            "build": "cross-env MODE=prod rspack build && tsc",
+            "dev:outside": "rspack --mode=development --watch"
       },
       "dependencies": {
             "@antv/layout": "^0.3.20",

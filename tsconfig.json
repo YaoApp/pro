@@ -6,7 +6,7 @@
 		"lib": ["ESNEXT", "DOM"],
 		"moduleResolution": "Node",
 		"declaration": true,
-            "emitDeclarationOnly": true,
+		"emitDeclarationOnly": true,
 		"outDir": "dist",
 		"strict": true,
 		"baseUrl": ".",
@@ -16,5 +16,5 @@
 		"experimentalDecorators": true,
 		"jsx": "react-jsx"
 	},
-	"include": ["src", "typings.d.ts"]
+	"include": ["src", "*.d.ts"]
 }

@@ -16,12 +16,13 @@ const Index = (props: IPropsApprovalFlowEditor) => {
 	const { x, c } = useGraph(__namespace)
 
 	useLayoutEffect(() => {
+            x.init(__namespace)
+            
 		x.raw_data = data as AFE.RawData
-		x.init(__namespace)
 
 		return () => x.off()
-	}, [])
-
+      }, [])
+      
 	return <div style={{ width: '100%' }} ref={c}></div>
 }
 

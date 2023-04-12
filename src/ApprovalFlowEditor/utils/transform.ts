@@ -11,7 +11,7 @@ const dagre = new DagreLayout({
 	nodeSize: [210, 72]
 })
 
-export default (raw_data: AFE.RawData) => {
+export default (namespace: string, raw_data: AFE.RawData) => {
 	const flow_data: AFE.FlowData = { nodes: [], edges: [] }
 
 	raw_data.forEach((item, index) => {
@@ -21,7 +21,7 @@ export default (raw_data: AFE.RawData) => {
 		flow_data.nodes.push({
 			shape: 'Approvaltem',
 			id: source,
-			data: item
+			data: { ...item, namespace }
 		})
 
 		if (flow_data.edges.length) {
@@ -32,7 +32,7 @@ export default (raw_data: AFE.RawData) => {
 			flow_data.edges.push({
 				source,
 				target,
-				...getEdgeOptions(index)
+				...getEdgeOptions()
 			})
 		}
 	})

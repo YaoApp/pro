@@ -1,4 +1,4 @@
-import { useUpdateEffect } from 'ahooks'
+import { useMemoizedFn, useUpdateEffect } from 'ahooks'
 import { ConfigProvider, Popover } from 'antd'
 import { cx } from 'classix'
 import { useState } from 'react'
@@ -11,19 +11,20 @@ import useStyles from './styles'
 import type { IPropsAddButton } from '../../types'
 
 const Index = (props: IPropsAddButton) => {
-	const { emitter, namespace, index } = props
+	const { namespace, id } = props
 	const { classes } = useStyles()
 	const [open, setOpen] = useState(false)
+	const emitter = window[`${namespace}_AFE`].emitter
 
 	useUpdateEffect(() => {
 		emitter.emit(`${namespace}/afe/${open ? '' : 'un'}lockScroller`)
 	}, [open])
 
-	const insert = () => {
+	const insert = useMemoizedFn(() => {
 		setOpen(false)
 
-		emitter.emit(`${namespace}/afe/insert`, index)
-	}
+		emitter.emit(`${namespace}/afe/insert`, id)
+	})
 
 	const Options = (
 		<div className={cx('flex flex_column', classes.options)}>
@@ -31,7 +32,7 @@ const Index = (props: IPropsAddButton) => {
 			<div className='option_items w_100 flex'>
 				<div
 					className='option_item w_100 flex align_center transition_normal cursor_point'
-					onClick={() => insert()}
+					onClick={insert}
 				>
 					<div className='icon_wrap flex justify_center align_center'>
 						<User size={18} weight='fill'></User>
@@ -44,13 +45,13 @@ const Index = (props: IPropsAddButton) => {
 
 	return (
 		<ConfigProvider prefixCls='xgen'>
-                  <Popover
-                        overlayClassName={classes.popover}
+			<Popover
+				overlayClassName={classes.popover}
 				open={open}
 				content={Options}
 				trigger='click'
-				placement='bottomLeft'
-				align={{ offset: [-15, 0] }}
+				placement='right'
+				autoAdjustOverflow={false}
 				onOpenChange={(v) => setOpen(v)}
 			>
 				<div
