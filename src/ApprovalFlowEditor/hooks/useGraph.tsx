@@ -68,7 +68,7 @@ export default (namespace: string) => {
 		if (!g.current || mounted) return
 
 		g.current.fromJSON(x.flow_data)
-		g.current.positionContent('top')
+		g.current.positionContent('top', { padding: { top: 72 } })
 
 		if (x.flow_data?.nodes) setMounted(true)
 	}, [x.flow_data])

@@ -1,5 +1,5 @@
 
 > @yaoapp/pro@1.0.0 build /Users/xiewendao/Projects/Yao/xgen/packages/pro
-> rspack build && tsc
+> cross-env MODE=prod rspack build && tsc
 
-Time: 203ms
+Time: 783ms

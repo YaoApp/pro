@@ -13,6 +13,9 @@ package-lock.json
 .svn
 .swc
 
+# turbo
+.turbo
+
 # 一些临时文件
 **/.tmp
 *lock.yaml
