@@ -1,4 +1,4 @@
-import { makeStyles } from '@/common'
+import { makeStyles } from '@/utils/common'
 
 export default makeStyles()({
 	local: {

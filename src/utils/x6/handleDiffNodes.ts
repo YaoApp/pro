@@ -1,10 +1,10 @@
 import { match } from 'ts-pattern'
 
-import { chunkDiff, mergDiff } from '@/common/utils'
+import { chunkDiff, mergDiff } from '@/utils'
 
 import type { Graph } from '@antv/x6'
 import type { DiffItem } from '@/types'
-import type { AFE } from '@/ApprovalFlowEditor/types'
+import type { AFE } from '@/modules/ApprovalFlowEditor/types'
 
 type Args = {
 	graph: Graph

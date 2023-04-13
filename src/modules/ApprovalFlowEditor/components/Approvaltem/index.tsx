@@ -1,7 +1,7 @@
 import { useMemoizedFn } from 'ahooks'
 import { cx } from 'classix'
 
-import { node_memo } from '@/common'
+import { node_memo } from '@/utils/common'
 import { X } from '@phosphor-icons/react'
 
 import { MApprovalType } from '../../utils'

@@ -1,4 +1,4 @@
-import type { IEditComponent } from '@/common'
+import type { IEditComponent } from '@/components'
 import type { Node, Edge } from '@antv/x6'
 import type { AFE } from './ApprovalFlowEditor'
 

@@ -4,7 +4,7 @@ import { makeAutoObservable, reaction, toJS } from 'mobx'
 import { nanoid } from 'nanoid'
 import { injectable } from 'tsyringe'
 
-import { handleDiffNodes } from '@/common/utils'
+import { handleDiffNodes } from '@/utils'
 
 import { transform } from './utils'
 

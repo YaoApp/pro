@@ -1,3 +1,3 @@
-import { default as ApprovalFlowEditor } from './ApprovalFlowEditor'
+import { default as ApprovalFlowEditor } from './modules/ApprovalFlowEditor'
 
 export { ApprovalFlowEditor }

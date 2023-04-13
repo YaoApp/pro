@@ -1,6 +1,6 @@
 import { Form } from 'antd'
 
-import memo from './memo'
+import memo from '../utils/common/memo'
 
 import type { FormItemProps } from 'antd'
 

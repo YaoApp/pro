@@ -3,7 +3,7 @@ import { ConfigProvider, Popover } from 'antd'
 import { cx } from 'classix'
 import { useState } from 'react'
 
-import { memo } from '@/common'
+import { memo } from '@/utils/common'
 import { Plus, User } from '@phosphor-icons/react'
 
 import useStyles from './styles'

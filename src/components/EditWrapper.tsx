@@ -1,4 +1,4 @@
-import { Item } from '@/common'
+import { Item } from '@/components'
 
 import type { InputProps } from 'antd'
 import type { FC } from 'react'
