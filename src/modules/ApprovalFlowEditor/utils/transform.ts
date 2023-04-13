@@ -25,11 +25,15 @@ export default (namespace: string, raw_data: AFE.RawData) => {
 		})
 
 		if (flow_data.edges.length) {
-			flow_data.edges[flow_data.edges.length - 1].target = source
+			const prev_edge = flow_data.edges[flow_data.edges.length - 1]
+
+			prev_edge.target = source
+			prev_edge.id += `/${source}`
 		}
 
 		if (index !== raw_data.length - 1) {
 			flow_data.edges.push({
+				id: source,
 				source,
 				target,
 				...getEdgeOptions()

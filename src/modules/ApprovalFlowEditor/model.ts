@@ -1,10 +1,9 @@
 import Emittery from 'emittery'
-import { diff } from 'just-diff'
 import { makeAutoObservable, reaction, toJS } from 'mobx'
 import { nanoid } from 'nanoid'
 import { injectable } from 'tsyringe'
 
-import { handleDiffNodes } from '@/utils'
+import { graphUpdater, removeBy } from '@/utils'
 
 import { transform } from './utils'
 
@@ -18,7 +17,6 @@ export default class Index {
 	namespace = ''
 	raw_data = [] as AFE.RawData
 	flow_data = {} as AFE.FlowData
-	current_operation = '' as 'insert' | 'remove' | 'update'
 
 	constructor() {
 		makeAutoObservable(this, {}, { autoBind: true })
@@ -39,12 +37,10 @@ export default class Index {
 		reaction(
 			() => this.raw_data,
 			(v) => {
-				// this.getFlowData(v)
-
 				if (this.flow_data.nodes) {
-					this.getDiffData(v)
+					this.updateFlow(v)
 				} else {
-					this.getFlowData(v)
+					this.getFlow(v)
 				}
 			}
 		)
@@ -54,39 +50,30 @@ export default class Index {
 		return transform(this.namespace, v)
 	}
 
-	private getFlowData(v: AFE.RawData) {
+      private getFlow(v: AFE.RawData) {
 		this.flow_data = this.transform(v)
 	}
 
-	private getDiffData(v: AFE.RawData) {
-		if (!this.current_operation) return
+	private updateFlow(v: AFE.RawData) {
+		const flow_data = this.transform(toJS(v))
 
-		const flow_data = this.transform(v)
-		const diff_nodes = diff(this.flow_data.nodes, flow_data.nodes)
-		const diff_edges = diff(this.flow_data.edges, flow_data.edges)
-
-		this.graph.batchUpdate(() => {
-			handleDiffNodes({
-				graph: this.graph,
-				diff_nodes,
-				diff_edges,
-				operation: this.current_operation,
-				flow_data_nodes: toJS(this.flow_data.nodes)
-			})
+		graphUpdater({
+			graph: this.graph,
+			prev_flow: toJS(this.flow_data),
+			current_flow: flow_data
 		})
 
 		this.flow_data = flow_data
 	}
 
 	private insert(id: string) {
-		this.current_operation = 'insert'
-
-		const index = this.graph.getEdges().findIndex((item) => item.id === id)
+		const edge = this.graph.getEdges().find((item) => item.id === id)!
+		const index = this.raw_data.findIndex((item) => item.id === edge.getSourceCellId())
 
 		this.raw_data.splice(index + 1, 0, {
 			id: nanoid(),
 			uid: -1,
-			label: '',
+			label: '未设置',
 			type: 'approval'
 		})
 
@@ -94,11 +81,7 @@ export default class Index {
 	}
 
 	private remove(id: string) {
-		this.current_operation = 'remove'
-
-		const index = this.raw_data.findIndex((item) => item.id === id)
-
-		this.raw_data.splice(index, 1)
+		removeBy(this.raw_data, 'id', id)
 
 		this.raw_data = toJS(this.raw_data)
 	}
