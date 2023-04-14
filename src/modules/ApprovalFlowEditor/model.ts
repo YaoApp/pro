@@ -5,6 +5,7 @@ import { injectable } from 'tsyringe'
 
 import { graphUpdater, removeBy } from '@/utils'
 
+import Services from './services'
 import { transform } from './utils'
 
 import type { Graph } from '@antv/x6'
@@ -17,12 +18,14 @@ export default class Index {
 	namespace = ''
 	raw_data = [] as AFE.RawData
 	flow_data = {} as AFE.FlowData
+	visible_detail = false
+	current_item = {} as AFE.RawDataItem
 
-	constructor() {
+	constructor(public services: Services) {
 		makeAutoObservable(this, {}, { autoBind: true })
 	}
 
-	init(namespace: string) {
+	init(namespace: string, api: string) {
 		window[`${namespace}_AFE`] = {
 			emitter: this.emitter
 		}
@@ -31,6 +34,8 @@ export default class Index {
 
 		this.on()
 		this.reactions()
+
+		this.services.init(api)
 	}
 
 	private reactions() {
@@ -50,7 +55,7 @@ export default class Index {
 		return transform(this.namespace, v)
 	}
 
-      private getFlow(v: AFE.RawData) {
+	private getFlow(v: AFE.RawData) {
 		this.flow_data = this.transform(v)
 	}
 
@@ -62,7 +67,7 @@ export default class Index {
 			prev_flow: toJS(this.flow_data),
 			current_flow: flow_data
 		})
-
+            
 		this.flow_data = flow_data
 	}
 
@@ -86,13 +91,33 @@ export default class Index {
 		this.raw_data = toJS(this.raw_data)
 	}
 
+	private setCurrentItem(id: string) {
+		const item = this.raw_data.find((item) => item.id === id)!
+
+		this.current_item = item
+		this.visible_detail = true
+	}
+
+	private updateCurrentItem({ uid, label }: { uid: number; label: string }) {
+		const index = this.raw_data.findIndex((item) => item.id === this.current_item.id)!
+
+		this.raw_data[index].uid = uid
+		this.raw_data[index].label = label
+            
+		this.raw_data = toJS(this.raw_data)
+	}
+
 	on() {
 		this.emitter.on(`${this.namespace}/afe/insert`, this.insert)
 		this.emitter.on(`${this.namespace}/afe/remove`, this.remove)
+		this.emitter.on(`${this.namespace}/afe/setCurrentItem`, this.setCurrentItem)
+		this.emitter.on(`${this.namespace}/afe/updateCurrentItem`, this.updateCurrentItem)
 	}
 
 	off() {
 		this.emitter.off(`${this.namespace}/afe/insert`, this.insert)
 		this.emitter.off(`${this.namespace}/afe/remove`, this.remove)
+		this.emitter.off(`${this.namespace}/afe/setCurrentItem`, this.setCurrentItem)
+		this.emitter.off(`${this.namespace}/afe/updateCurrentItem`, this.updateCurrentItem)
 	}
 }

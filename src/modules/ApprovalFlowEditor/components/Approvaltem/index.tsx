@@ -7,6 +7,7 @@ import { X } from '@phosphor-icons/react'
 import { MApprovalType } from '../../utils'
 import useStyles from './styles'
 
+import type { MouseEvent } from 'react'
 import type { IPropsApprovalItem, AFE } from '../../types'
 
 const Index = (props: IPropsApprovalItem) => {
@@ -17,12 +18,21 @@ const Index = (props: IPropsApprovalItem) => {
 
 	const Icon = MApprovalType[type].icon
 
-	const remove = useMemoizedFn(() => {
+	const remove = useMemoizedFn((e: MouseEvent<HTMLSpanElement>) => {
+		e.stopPropagation()
+
 		emitter.emit(`${namespace}/afe/remove`, node.id)
 	})
 
+	const edit = useMemoizedFn(() => {
+		emitter.emit(`${namespace}/afe/setCurrentItem`, node.id)
+	})
+
 	return (
-		<div className={cx('w_100 h_100 border_box flex flex_column transition_normal', classes.local)}>
+		<div
+			className={cx('w_100 h_100 border_box flex flex_column transition_normal', classes.local)}
+			onClick={edit}
+		>
 			<div
 				className={cx(
 					'header_wrap w_100 border_box flex align_center justify_between',

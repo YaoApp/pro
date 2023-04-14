@@ -34,7 +34,7 @@ export default (namespace: string) => {
 			}
 		})
 
-		graph.use(new Scroller({ graph, enabled: true, pannable: true }))
+		graph.use(new Scroller({ graph, enabled: true, pannable: true, autoResize: true }))
 
 		x.graph = graph
 		g.current = graph

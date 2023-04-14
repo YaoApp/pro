@@ -1,4 +1,4 @@
-import { register } from '@antv/x6-react-shape'
+import { Portal, register } from '@antv/x6-react-shape'
 
 import { Approvaltem } from '../components'
 
@@ -9,3 +9,5 @@ register({
 	width: 210,
 	height: 72
 })
+
+export const PortalProvider = Portal.getProvider()

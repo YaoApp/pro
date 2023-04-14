@@ -6,7 +6,7 @@ import type { AFE } from '../types'
 
 const dagre = new DagreLayout({
 	type: 'dagre',
-	rankdir: 'TB',
+      rankdir: 'TB',
 	ranksep: 26,
 	nodeSize: [210, 72]
 })
