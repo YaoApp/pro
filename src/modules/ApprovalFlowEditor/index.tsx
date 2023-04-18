@@ -16,7 +16,7 @@ import useStyles from './styles'
 import { PortalProvider } from './utils/registerNodes'
 
 import type { IEditWrapper } from '@/components'
-import type { IPropsApprovalFlowEditor, AFE, IPropsDetail } from './types'
+import type { IPropsApprovalFlowEditor, IPropsDetail } from './types'
 
 const Index = (props: IPropsApprovalFlowEditor) => {
 	const { __namespace, usersApi } = props
