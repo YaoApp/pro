@@ -1,5 +1,4 @@
 import to from 'await-to-js'
-import axios from 'axios'
 import { makeAutoObservable } from 'mobx'
 import { injectable } from 'tsyringe'
 
@@ -21,7 +20,7 @@ export default class Index {
 	}
 
 	async getUserOptions() {
-		const [err, res] = await to(axios.get<{}, SelectProps['options']>(this.api))
+		const [err, res] = await to<SelectProps['options']>(window.$axios.get(this.api))
 
 		if (err) return
 

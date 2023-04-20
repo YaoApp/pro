@@ -22,6 +22,10 @@ module.exports = [
 	'@antv/x6-plugin-scroller',
 	'@antv/layout',
 
+	'@dnd-kit/core',
+	'@dnd-kit/sortable',
+	'@dnd-kit/utilities',
+
 	'antd',
 	'ahooks',
 

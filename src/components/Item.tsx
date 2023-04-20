@@ -1,7 +1,5 @@
 import { Form } from 'antd'
 
-import memo from '../utils/common/memo'
-
 import type { FormItemProps } from 'antd'
 
 const { Item } = Form
@@ -35,4 +33,4 @@ const Index = (props: IProps) => {
 	)
 }
 
-export default memo(Index)
+export default window.$app.memo(Index)

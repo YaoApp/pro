@@ -3,7 +3,6 @@ import { ConfigProvider, Popover } from 'antd'
 import { cx } from 'classix'
 import { useState } from 'react'
 
-import { memo } from '@/utils/common'
 import { Plus, User } from '@phosphor-icons/react'
 
 import useStyles from './styles'
@@ -67,4 +66,4 @@ const Index = (props: IPropsAddButton) => {
 	)
 }
 
-export default memo(Index)
+export default window.$app.memo(Index)

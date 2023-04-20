@@ -1,5 +1,3 @@
-import '@/presets'
-
 import { useMemoizedFn } from 'ahooks'
 import { cx } from 'classix'
 import { toJS } from 'mobx'
@@ -7,7 +5,6 @@ import { observer } from 'mobx-react-lite'
 import { useEffect, useLayoutEffect } from 'react'
 
 import { EditWrapper } from '@/components'
-import { memo } from '@/utils'
 
 import { Detail } from './components'
 import data from './data'
@@ -20,24 +17,22 @@ import type { IPropsApprovalFlowEditor, IPropsDetail } from './types'
 
 const Index = (props: IPropsApprovalFlowEditor) => {
 	const { __namespace, usersApi } = props
-	const value = props.value as IPropsApprovalFlowEditor['data'] | null
-	const onChange = props.onChange as (...args: any) => void
 	const { x, c } = useGraph(__namespace)
 	const { classes } = useStyles()
 
 	useLayoutEffect(() => {
 		x.init(__namespace, usersApi)
 
-		if (value) {
-			x.raw_data = value?.length > 1 ? value : data
+		if (props.value) {
+			x.raw_data = props.value?.length > 1 ? props.value : data
 		} else {
 			x.raw_data = data
 		}
 
 		return () => x.off()
-	}, [])
+	}, [__namespace, usersApi, props.value])
 
-	useEffect(() => onChange(toJS(x.raw_data)), [x.raw_data])
+	useEffect(() => props.onChange(toJS(x.raw_data)), [x.raw_data])
 
 	const props_detail: IPropsDetail = {
 		namespace: __namespace,
@@ -57,4 +52,4 @@ const Index = (props: IPropsApprovalFlowEditor) => {
 	)
 }
 
-export default memo((props: IEditWrapper) => EditWrapper(observer(Index), props)())
+export default window.$app.memo((props: IEditWrapper) => EditWrapper(observer(Index), props, { hideBg: true })())

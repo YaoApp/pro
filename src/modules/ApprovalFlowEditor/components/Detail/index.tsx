@@ -2,7 +2,6 @@ import { useMemoizedFn } from 'ahooks'
 import { Select } from 'antd'
 import { cx } from 'classix'
 
-import { memo } from '@/utils/common'
 import { X } from '@phosphor-icons/react'
 
 import { MApprovalType } from '../../utils'
@@ -43,4 +42,4 @@ const Index = (props: IPropsDetail) => {
 	)
 }
 
-export default memo(Index)
+export default window.$app.memo(Index)

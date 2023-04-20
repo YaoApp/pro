@@ -1,13 +1,26 @@
 import type { IEditComponent } from '@/components'
 import type { Node, Edge } from '@antv/x6'
-import type { AFE } from './ApprovalFlowEditor'
-import type Model from '../model'
+import type Model from './model'
 
-export * from './ApprovalFlowEditor'
+export namespace AFE {
+	export interface RawDataItem {
+		id: string
+		uid: number
+		label: string
+		type: 'initor' | 'approval' | 'copy'
+	}
+
+	export type RawData = Array<RawDataItem>
+
+	export interface FlowData {
+		nodes: Array<Node.Metadata & { data: RawDataItem }>
+		edges: Array<Edge.Metadata & Edge.Label>
+	}
+}
 
 export interface IPropsApprovalFlowEditor extends IEditComponent {
 	usersApi: string
-	data: AFE.RawData
+	value: AFE.RawData
 }
 
 export interface IPropsApprovalItem {

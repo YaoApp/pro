@@ -9,6 +9,7 @@ export interface IEditWrapper extends InputProps, Component.PropsEditComponent {
 
 export interface IEditComponent extends Omit<IEditWrapper, '__bind' | '__name' | 'itemProps'> {
 	value: any
+	onChange: (...args: any) => void
 }
 
 const useStyles = makeStyles()({
@@ -19,12 +20,12 @@ const useStyles = makeStyles()({
 	}
 })
 
-const Index = (Component: FC<any>, props: IEditWrapper) => {
+const Index = (Component: FC<any>, props: IEditWrapper, options?: { hideBg?: boolean }) => {
 	const { __bind, __name, itemProps, ...rest_props } = props
 	const { classes } = useStyles()
 
 	return () => (
-		<Item {...itemProps} {...{ __bind, __name }} className={classes.local}>
+		<Item {...itemProps} {...{ __bind, __name }} className={options?.hideBg ? classes.local : ''}>
 			<Component {...rest_props} />
 		</Item>
 	)
