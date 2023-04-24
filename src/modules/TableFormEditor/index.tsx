@@ -8,7 +8,6 @@ import { container } from 'tsyringe'
 import { EditWrapper } from '@/components'
 
 import { Detail, Td } from './components'
-import data from './data'
 import Model from './model'
 import useStyles from './styles'
 
@@ -22,19 +21,23 @@ const Index = (props: IPropsProjectFlowEditor) => {
 
 	const onTd = useMemoizedFn((tr_index: number, td_index: number) => {
 		x.visible_detail = true
-		x.current_td_item = data[tr_index][td_index]
 		x.current_td_index = { tr_index, td_index }
 	})
 
 	const props_detail: IPropsDetail = {
-		current_td_item: toJS(x.current_td_item)
+		current_td_item: toJS(x.current_td_item),
+		onChange: useMemoizedFn(x.onChange),
+		insertRow: useMemoizedFn(x.insertRow),
+		insertCol: useMemoizedFn(x.insertCol),
+		remove: useMemoizedFn(x.remove),
+		hideDetail: useMemoizedFn(() => (x.visible_detail = false))
 	}
 
 	return (
 		<div className={cx('w_100 border_box flex justify_between', classes.local)}>
 			<table className={cx('table_wrap', x.visible_detail && 'show_detail')}>
 				<tbody>
-					{data.map((tr, tr_index) => {
+					{toJS(x.data).map((tr, tr_index) => {
 						return (
 							<tr key={tr_index}>
 								{tr.map((td, td_index) => (

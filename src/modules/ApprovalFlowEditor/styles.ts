@@ -7,10 +7,10 @@ export default makeStyles()({
 		borderRadius: 'var(--radius)'
 	},
 	show_detail: {
-		width: 'calc(100% - 256px)',
+		width: 'calc(100% - 252px)',
 
 		'.__graph_container': {
-			transform: 'translate(-128px)'
+			transform: 'translate(-126px)'
 		}
 	}
 })

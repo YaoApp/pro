@@ -10,7 +10,7 @@ export default makeStyles()({
 			borderCollapse: 'collapse',
 
 			'&.show_detail': {
-				width: 'calc(100% - 256px)'
+				width: 'calc(100% - 252px)'
 			},
 
 			'.label': {
@@ -47,10 +47,40 @@ export default makeStyles()({
 
 		'.detail_wrap': {
 			width: 240,
-			padding: 12,
 			backgroundColor: 'var(--color_bg_menu)',
 			borderRadius: 'var(--radius)',
-			lineHeight: 1
+			lineHeight: 1,
+
+			'.header_wrap': {
+				padding: 12,
+				borderBottom: '1px solid var(--color_border_light)',
+
+				'.icon_wrap': {
+					width: 24,
+					height: 24,
+					backgroundColor: 'var(--color_bg_nav)',
+					borderRadius: 'var(--radius)',
+
+					'&:hover': {
+						backgroundColor: 'var(--color_bg)'
+					}
+				}
+			},
+
+			'.detail_items_wrap': {
+				padding: 12,
+				paddingBottom: 0,
+
+				'.detail_item_wrap': {
+					marginBottom: 12,
+
+					'.form_label': {
+						marginBottom: 6,
+						color: 'var(--color_title)',
+						fontSize: 12
+					}
+				}
+			}
 		}
 	}
 })

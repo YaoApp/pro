@@ -54,7 +54,11 @@ const Index = (props: IPropsTd) => {
 			<td {...props_td}>
 				<div className='w_100 flex align_center'>
 					<span className='label'>{label}</span>
-					<CheckBoxGroup className='disabled' {...td_props}></CheckBoxGroup>
+					<CheckBoxGroup
+						className='disabled'
+						{...td_props}
+						options={td_props?.options.map((item: string) => ({ label: item, value: item }))}
+					></CheckBoxGroup>
 				</div>
 			</td>
 		)
@@ -65,7 +69,11 @@ const Index = (props: IPropsTd) => {
 			<td {...props_td}>
 				<div className='w_100 flex align_center'>
 					<span className='label'>{label}</span>
-					<RadioGroup className='disabled' {...td_props}></RadioGroup>
+					<RadioGroup
+						className='disabled'
+						{...td_props}
+						options={td_props?.options.map((item: string) => ({ label: item, value: item }))}
+					></RadioGroup>
 				</div>
 			</td>
 		)

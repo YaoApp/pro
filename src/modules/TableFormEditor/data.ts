@@ -56,11 +56,7 @@ export default [
 			value: null,
 			colSpan: 3,
 			props: {
-				options: [
-					{ label: 'Apple', value: 'Apple' },
-					{ label: 'Pear', value: 'Pear' },
-					{ label: 'Orange', value: 'Orange' }
-				]
+				options: ['Apple', 'Pear', 'Orange']
 			}
 		}
 	],
@@ -71,12 +67,8 @@ export default [
 			value: null,
 			colSpan: 3,
 			props: {
-				options: [
-					{ label: 'Apple', value: 'Apple' },
-					{ label: 'Pear', value: 'Pear' },
-					{ label: 'Orange', value: 'Orange' }
-				]
+				options: ['Apple', 'Pear', 'Orange']
 			}
 		}
 	]
-] as const
+]

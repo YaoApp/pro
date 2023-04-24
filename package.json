@@ -38,6 +38,7 @@
             "nanoid": "^4.0.2",
             "react": "^18.2.0",
             "react-dom": "^18.2.0",
+            "react-shadow": "^19.0.3",
             "ts-pattern": "^4.2.2",
             "tss-react": "^4.8.2",
             "tsyringe": "^4.7.0"

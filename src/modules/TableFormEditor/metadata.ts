@@ -1,23 +1,27 @@
 export default {
 	common: {
-		type: [
-			{
-				type: 'Title',
-				label: '标题'
-			},
-			{
-				type: 'Input',
-				label: '输入框'
-			},
-			{
-				type: 'Checkbox',
-				label: '多选'
-			},
-			{
-				type: 'Radio',
-				label: '单选'
-			}
-		],
+		type: {
+			type: 'select',
+			label: '字段类型',
+			options: [
+				{
+					type: 'Title',
+					label: '标题'
+				},
+				{
+					type: 'Input',
+					label: '输入框'
+				},
+				{
+					type: 'Checkbox',
+					label: '多选'
+				},
+				{
+					type: 'Radio',
+					label: '单选'
+				}
+			]
+		},
 		label: {
 			type: 'string',
 			label: '字段描述'
@@ -49,25 +53,25 @@ export default {
 	},
 	components: {
 		Title: {
-			maxLength: {
+			props_maxLength: {
 				type: 'number',
 				label: '长度限制'
 			}
 		},
 		Input: {
-			maxLength: {
+			props_maxLength: {
 				type: 'number',
 				label: '长度限制'
 			}
 		},
 		Checkbox: {
-			options: {
+			props_options: {
 				type: 'Array<string>',
 				label: '可选项'
 			}
 		},
 		Radio: {
-			options: {
+			props_options: {
 				type: 'Array<string>',
 				label: '可选项'
 			}
