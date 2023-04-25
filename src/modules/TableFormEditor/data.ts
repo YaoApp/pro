@@ -1,4 +1,4 @@
-export default [
+export const data = [
 	[
 		{
 			type: 'Title',
@@ -72,3 +72,36 @@ export default [
 		}
 	]
 ]
+
+export const actions = {
+	left: [
+		{
+			type: 'api',
+			text: '保存',
+			api: '',
+			isPrimary: true
+		},
+		{
+			type: 'api',
+			text: '提审',
+			api: ''
+		}
+	],
+	right: [
+		{
+			type: 'api',
+			text: '项目附件',
+			api: ''
+		},
+		{
+			type: 'api',
+			text: '打印',
+			api: ''
+		},
+		{
+			type: 'info',
+			text: '帮助',
+			info: '测试信息'
+		}
+	]
+}

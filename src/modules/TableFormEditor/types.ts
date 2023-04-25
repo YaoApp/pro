@@ -5,15 +5,14 @@ export namespace TFE {
 	export interface ApiAction {
 		type: 'api'
 		text: string
-		bgColor: string
-		textColor: string
 		api: string
-		afterClose?: boolean
+		isPrimary?: boolean
 	}
 
 	export interface InfoAction {
 		type: 'info'
 		text: string
+		info: string
 	}
 
 	export type Action = ApiAction | InfoAction
@@ -39,7 +38,7 @@ export namespace TFE {
 	}
 
 	export interface Metadata {
-		type: 'select' | 'string' | 'number' | 'any' | 'Array<string>'
+		type: 'select' | 'string' | 'number' | 'boolean' | 'any' | 'Array<string>' | 'textarea'
 		label: string
 		options?: Array<{ type: string; label: string }>
 	}
@@ -58,11 +57,14 @@ export interface IPropsTd {
 }
 
 export interface IPropsDetail {
+	detail_type: Model['detail_type']
 	current_td_item: Model['current_td_item']
-	onChange: (key: keyof TFE.TableFormItem, value: any) => void
-	insertRow: () => void
-	insertCol: () => void
-	remove: () => void
+	current_action_item: Model['current_action_item']
+	onChange: Model['onChange']
+	insertRow: Model['insertRow']
+	insertCol: Model['insertCol']
+	insertAction: Model['insertAction']
+	remove: Model['remove']
 	hideDetail: () => void
 }
 
@@ -71,4 +73,10 @@ export interface IPropsMetaItem {
 	v: TFE.Metadata
 	value: any
 	onChange: IPropsDetail['onChange']
+}
+
+export interface IPropsActions {
+	actions: Model['actions']
+	current_action_index: Model['current_action_index']
+	onAction: (index: number, position: 'left' | 'right') => void
 }

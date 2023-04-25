@@ -40,6 +40,10 @@ export default makeStyles()({
 
 					'&:hover,&.active': {
 						border: '1px solid var(--color_main)'
+					},
+
+					'.tips': {
+						color: 'var(--color_text_grey)'
 					}
 				}
 			}
@@ -79,6 +83,30 @@ export default makeStyles()({
 						color: 'var(--color_title)',
 						fontSize: 12
 					}
+				}
+			}
+		},
+
+		'.actions_wrap': {
+			padding: 12,
+			borderBottom: '1px solid var(--color_border_light)',
+
+			'.btn_action': {
+				'&.active': {
+					outlineOffset: 2,
+					outline: '1px solid var(--color_main)'
+				}
+			},
+
+			'.left_actions': {
+				'.btn_action': {
+					marginRight: 12
+				}
+			},
+
+			'.right_actions': {
+				'.btn_action': {
+					marginLeft: 12
 				}
 			}
 		}

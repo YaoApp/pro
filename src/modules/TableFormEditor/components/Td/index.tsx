@@ -1,11 +1,24 @@
 import { useMemoizedFn } from 'ahooks'
 import { Checkbox, Radio } from 'antd'
 import { cx } from 'classix'
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 
 import type { IPropsTd } from '../../types'
+import type { PropsWithChildren } from 'react'
+
 const { Group: CheckBoxGroup } = Checkbox
 const { Group: RadioGroup } = Radio
+
+const Wrapper = window.$app.memo(({ children, td }: PropsWithChildren & { td: IPropsTd['td'] }) => {
+	return (
+		<div className='flex align_center'>
+			{td.prefix && <span className='prefix mr_4'>{td.prefix}</span>}
+			{children}
+			{td.suffix && <span className='suffix ml_4'>{td.suffix}</span>}
+			{td.tips && <span className='tips ml_4'>（{td.tips}）</span>}
+		</div>
+	)
+})
 
 const Index = (props: IPropsTd) => {
 	const { td, tr_index, td_index, current_td_index, onTd } = props
@@ -33,7 +46,7 @@ const Index = (props: IPropsTd) => {
 	if (type === 'Title') {
 		return (
 			<td {...props_td} className={cx('text_center font_bold', props_td.className)}>
-				{label}
+				<Wrapper td={td}>{label}</Wrapper>
 			</td>
 		)
 	}
@@ -41,10 +54,12 @@ const Index = (props: IPropsTd) => {
 	if (type === 'Input') {
 		return (
 			<td {...props_td}>
-				<div className='w_100 flex align_center'>
-					<span className='label'>{label}</span>
-					<span className='value'>{value}</span>
-				</div>
+				<Wrapper td={td}>
+					<div className='w_100 flex align_center'>
+						<span className='label'>{label}</span>
+						<span className='value'>{value}</span>
+					</div>
+				</Wrapper>
 			</td>
 		)
 	}
@@ -52,14 +67,19 @@ const Index = (props: IPropsTd) => {
 	if (type === 'Checkbox') {
 		return (
 			<td {...props_td}>
-				<div className='w_100 flex align_center'>
-					<span className='label'>{label}</span>
-					<CheckBoxGroup
-						className='disabled'
-						{...td_props}
-						options={td_props?.options.map((item: string) => ({ label: item, value: item }))}
-					></CheckBoxGroup>
-				</div>
+				<Wrapper td={td}>
+					<div className='w_100 flex align_center'>
+						<span className='label'>{label}</span>
+						<CheckBoxGroup
+							className='disabled'
+							{...td_props}
+							options={td_props?.options.map((item: string) => ({
+								label: item,
+								value: item
+							}))}
+						></CheckBoxGroup>
+					</div>
+				</Wrapper>
 			</td>
 		)
 	}
@@ -67,14 +87,19 @@ const Index = (props: IPropsTd) => {
 	if (type === 'Radio') {
 		return (
 			<td {...props_td}>
-				<div className='w_100 flex align_center'>
-					<span className='label'>{label}</span>
-					<RadioGroup
-						className='disabled'
-						{...td_props}
-						options={td_props?.options.map((item: string) => ({ label: item, value: item }))}
-					></RadioGroup>
-				</div>
+				<Wrapper td={td}>
+					<div className='w_100 flex align_center'>
+						<span className='label'>{label}</span>
+						<RadioGroup
+							className='disabled'
+							{...td_props}
+							options={td_props?.options.map((item: string) => ({
+								label: item,
+								value: item
+							}))}
+						></RadioGroup>
+					</div>
+				</Wrapper>
 			</td>
 		)
 	}

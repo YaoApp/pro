@@ -1,46 +1,80 @@
 import { useMemoizedFn } from 'ahooks'
 import { Tooltip } from 'antd'
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 
-import { Columns, Rows, Trash, X } from '@phosphor-icons/react'
+import { Columns, Rectangle, Rows, Trash, X } from '@phosphor-icons/react'
 
 import metadata from '../../metadata'
 import MetaItem from '../MetaItem'
 
 import type { IPropsDetail } from '../../types'
 const Index = (props: IPropsDetail) => {
-	const { current_td_item, onChange, insertRow, insertCol, remove, hideDetail } = props
-      const { type } = current_td_item
+	const {
+		detail_type,
+		current_td_item,
+		current_action_item,
+		onChange,
+		insertRow,
+		insertCol,
+		insertAction,
+		remove,
+		hideDetail
+	} = props
+	const { type: td_type } = current_td_item
+	const { type: action_type } = current_action_item
 
-	const all_metadata = useMemo(() => ({ ...metadata.common, ...metadata.components[type] }), [metadata, type])
+	const all_metadata = useMemo(() => {
+		if (detail_type === 'tableform') return { ...metadata.common, ...metadata.components[td_type] }
+
+		return { ...metadata.action.common, ...metadata.action[action_type] }
+	}, [detail_type, metadata, td_type, action_type])
 
 	const getValue = useMemoizedFn((key: string) => {
-		if (key.indexOf('props_') !== -1) return current_td_item?.props?.[key.replace('props_', '')]
+		if (detail_type === 'tableform') {
+			if (key.indexOf('props_') !== -1) return current_td_item?.props?.[key.replace('props_', '')]
+
+			// @ts-ignore
+			return current_td_item[key]
+		}
 
 		// @ts-ignore
-		return current_td_item[key]
+		return current_action_item[key]
 	})
 
 	return (
 		<div className='detail_wrap flex flex_column'>
 			<div className='header_wrap w_100 border_box flex justify_between align_center'>
 				<div className='flex align_center'>
-					<Tooltip title='插入行'>
-						<div
-							className='icon_wrap flex justify_center align_center mr_4 clickable'
-							onClick={insertRow}
-						>
-							<Rows size={16}></Rows>
-						</div>
-					</Tooltip>
-					<Tooltip title='插入列'>
-						<div
-							className='icon_wrap flex justify_center align_center mr_4 clickable'
-							onClick={insertCol}
-						>
-							<Columns size={16}></Columns>
-						</div>
-					</Tooltip>
+					{detail_type === 'tableform' ? (
+						<Fragment>
+							<Tooltip title='插入行'>
+								<div
+									className='icon_wrap flex justify_center align_center mr_4 clickable'
+									onClick={insertRow}
+								>
+									<Rows size={16}></Rows>
+								</div>
+							</Tooltip>
+							<Tooltip title='插入列'>
+								<div
+									className='icon_wrap flex justify_center align_center mr_4 clickable'
+									onClick={insertCol}
+								>
+									<Columns size={16}></Columns>
+								</div>
+							</Tooltip>
+						</Fragment>
+					) : (
+						<Tooltip title='添加按钮'>
+							<div
+								className='icon_wrap flex justify_center align_center mr_4 clickable'
+								onClick={insertAction}
+							>
+								<Rectangle size={16}></Rectangle>
+							</div>
+						</Tooltip>
+					)}
+
 					<Tooltip title='删除'>
 						<div
 							className='icon_wrap flex justify_center align_center clickable'

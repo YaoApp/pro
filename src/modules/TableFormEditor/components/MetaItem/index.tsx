@@ -1,8 +1,10 @@
-import { Input, InputNumber, Select } from 'antd'
-
-const { Option } = Select
+import { Input, InputNumber, Radio, Select } from 'antd'
 
 import type { IPropsMetaItem } from '../../types'
+
+const { Option } = Select
+const { Group } = Radio
+const { TextArea } = Input
 
 const Index = (props: IPropsMetaItem) => {
 	const { k, v, value, onChange } = props
@@ -27,14 +29,21 @@ const Index = (props: IPropsMetaItem) => {
 		return <InputNumber value={value} onChange={(value) => onChange(k, value)}></InputNumber>
 	}
 
-	if (v.type === 'Array<string>') {
+	if (v.type === 'boolean') {
 		return (
-			<Select
-				mode='tags'
-				value={value}
-				onChange={(value) => onChange(k, value)}
-			></Select>
+			<Group value={value} onChange={({ target: { value } }) => onChange(k, value)}>
+				<Radio value={true}>是</Radio>
+				<Radio value={false}>否</Radio>
+			</Group>
 		)
+	}
+
+	if (v.type === 'Array<string>') {
+		return <Select mode='tags' value={value} onChange={(value) => onChange(k, value)}></Select>
+	}
+
+	if (v.type === 'textarea') {
+		return <TextArea rows={6} value={value} onChange={({ target: { value } }) => onChange(k, value)}></TextArea>
 	}
 
 	return null

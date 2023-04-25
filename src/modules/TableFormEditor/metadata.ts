@@ -78,25 +78,41 @@ export default {
 		}
 	},
 	action: {
-		text: {
-			type: 'string',
-			label: '按钮文字'
-		},
-		bgColor: {
-			type: 'string',
-			label: '按钮背景色'
-		},
-		textColor: {
-			type: 'string',
-			label: '按钮文字颜色'
+		common: {
+			type: {
+				type: 'select',
+				label: '按钮类型',
+				options: [
+					{
+						type: 'api',
+						label: '接口'
+					},
+					{
+						type: 'info',
+						label: '提示'
+					}
+				]
+			},
+			text: {
+				type: 'string',
+				label: '按钮文字'
+			}
 		},
 		api: {
-			type: 'string',
-			label: '调用的接口'
+			api: {
+				type: 'string',
+				label: '调用的接口'
+			},
+			isPrimary: {
+				type: 'boolean',
+				label: '是否为主题色按钮'
+			}
 		},
-		afterClose: {
-			type: 'boolean',
-			label: '执行后关闭弹窗'
+		info: {
+			info: {
+				type: 'textarea',
+				label: '帮助信息'
+			}
 		}
 	}
 }
