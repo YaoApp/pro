@@ -42,6 +42,10 @@ export default makeStyles()({
 						border: '1px solid var(--color_main)'
 					},
 
+					span: {
+						whiteSpace: 'nowrap'
+					},
+
 					'.tips': {
 						color: 'var(--color_text_grey)'
 					}
