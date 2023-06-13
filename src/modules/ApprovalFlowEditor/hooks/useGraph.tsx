@@ -46,12 +46,12 @@ export default (namespace: string) => {
 			graph.unlockScroller()
 		}
 
-		x.emitter.on(`${namespace}/afe/lockScroller`, lockScroller)
-		x.emitter.on(`${namespace}/afe/unlockScroller`, unlockScroller)
+		window.$app.Event.on(`${namespace}/afe/lockScroller`, lockScroller)
+		window.$app.Event.on(`${namespace}/afe/unlockScroller`, unlockScroller)
 
 		return () => {
-			x.emitter.off(`${namespace}/afe/lockScroller`, lockScroller)
-			x.emitter.off(`${namespace}/afe/unlockScroller`, unlockScroller)
+			window.$app.Event.off(`${namespace}/afe/lockScroller`, lockScroller)
+			window.$app.Event.off(`${namespace}/afe/unlockScroller`, unlockScroller)
 
 			graph.dispose()
 		}

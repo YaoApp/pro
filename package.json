@@ -11,7 +11,7 @@
             "tsc": "tsc",
             "dev": "cross-env MODE=dev rspack build --watch",
             "build": "cross-env MODE=prod rspack build && tsc",
-            "dev:outside": "rspack --mode=development --watch"
+            "build:xgen": "cross-env MODE=prod rspack build --config rspack.output.js"
       },
       "dependencies": {
             "@antv/layout": "^0.3.20",
@@ -44,7 +44,7 @@
             "tsyringe": "^4.7.0"
       },
       "devDependencies": {
-            "@rspack/cli": "^0.1.9",
+            "@rspack/cli": "^0.1.12",
             "@types/lodash-es": "^4.17.7",
             "@types/react": "^18.0.33",
             "@types/react-dom": "^18.0.11",

@@ -7,7 +7,6 @@ module.exports = [
 	'await-to-js',
 	'ts-pattern',
 	'axios',
-	'emittery',
 	'nanoid',
 	'classix',
 	'tss-react',

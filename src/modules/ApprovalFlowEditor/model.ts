@@ -1,4 +1,3 @@
-import Emittery from 'emittery'
 import { makeAutoObservable, reaction, toJS } from 'mobx'
 import { nanoid } from 'nanoid'
 import { injectable } from 'tsyringe'
@@ -10,27 +9,29 @@ import { transform } from './utils'
 
 import type { Graph } from '@antv/x6'
 import type { AFE } from './types'
+import type { IEditComponent } from '@/components'
 
 @injectable()
 export default class Index {
-	emitter = new Emittery()
 	graph = {} as Graph
 	namespace = ''
 	raw_data = [] as AFE.RawData
 	flow_data = {} as AFE.FlowData
 	visible_detail = false
 	current_item = {} as AFE.RawDataItem
+	onChange = null as IEditComponent['onChange'] | null
 
 	constructor(public services: Services) {
 		makeAutoObservable(this, {}, { autoBind: true })
 	}
 
-	init(namespace: string, api: string) {
+	init(namespace: string, api: string, onChange: IEditComponent['onChange']) {
 		window[`${namespace}_AFE`] = {
-			emitter: this.emitter
+			emitter: window.$app.Event
 		}
 
 		this.namespace = namespace
+		this.onChange = onChange
 
 		this.on()
 		this.reactions()
@@ -42,6 +43,8 @@ export default class Index {
 		reaction(
 			() => this.raw_data,
 			(v) => {
+				this.onChange?.(toJS(v))
+
 				if (this.flow_data.nodes) {
 					this.updateFlow(v)
 				} else {
@@ -67,7 +70,7 @@ export default class Index {
 			prev_flow: toJS(this.flow_data),
 			current_flow: flow_data
 		})
-            
+
 		this.flow_data = flow_data
 	}
 
@@ -103,21 +106,21 @@ export default class Index {
 
 		this.raw_data[index].uid = uid
 		this.raw_data[index].label = label
-            
+
 		this.raw_data = toJS(this.raw_data)
 	}
 
 	on() {
-		this.emitter.on(`${this.namespace}/afe/insert`, this.insert)
-		this.emitter.on(`${this.namespace}/afe/remove`, this.remove)
-		this.emitter.on(`${this.namespace}/afe/setCurrentItem`, this.setCurrentItem)
-		this.emitter.on(`${this.namespace}/afe/updateCurrentItem`, this.updateCurrentItem)
+		window.$app.Event.on(`${this.namespace}/afe/insert`, this.insert)
+		window.$app.Event.on(`${this.namespace}/afe/remove`, this.remove)
+		window.$app.Event.on(`${this.namespace}/afe/setCurrentItem`, this.setCurrentItem)
+		window.$app.Event.on(`${this.namespace}/afe/updateCurrentItem`, this.updateCurrentItem)
 	}
 
 	off() {
-		this.emitter.off(`${this.namespace}/afe/insert`, this.insert)
-		this.emitter.off(`${this.namespace}/afe/remove`, this.remove)
-		this.emitter.off(`${this.namespace}/afe/setCurrentItem`, this.setCurrentItem)
-		this.emitter.off(`${this.namespace}/afe/updateCurrentItem`, this.updateCurrentItem)
+		window.$app.Event.off(`${this.namespace}/afe/insert`, this.insert)
+		window.$app.Event.off(`${this.namespace}/afe/remove`, this.remove)
+		window.$app.Event.off(`${this.namespace}/afe/setCurrentItem`, this.setCurrentItem)
+		window.$app.Event.off(`${this.namespace}/afe/updateCurrentItem`, this.updateCurrentItem)
 	}
 }

@@ -9,6 +9,7 @@ declare global {
 		$axios: Axios
 		$app: {
 			api_prefix: string
+			Event: Emittery
 			memo: <T>(
 				el: (props: T) => JSX.Element | null
 			) => React.MemoExoticComponent<(props: T) => JSX.Element | null>

@@ -2,7 +2,7 @@ import { useMemoizedFn } from 'ahooks'
 import { cx } from 'classix'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
-import { useEffect, useLayoutEffect } from 'react'
+import { useLayoutEffect } from 'react'
 
 import { EditWrapper } from '@/components'
 
@@ -16,12 +16,12 @@ import type { IEditWrapper } from '@/components'
 import type { IPropsApprovalFlowEditor, IPropsDetail } from './types'
 
 const Index = (props: IPropsApprovalFlowEditor) => {
-	const { __namespace, usersApi } = props
+	const { __namespace, usersApi, onChange } = props
 	const { x, c } = useGraph(__namespace)
 	const { classes } = useStyles()
 
 	useLayoutEffect(() => {
-		x.init(__namespace, usersApi)
+		x.init(__namespace, usersApi, onChange)
 
 		if (props.value) {
 			x.raw_data = props.value?.length > 1 ? props.value : data
@@ -30,9 +30,7 @@ const Index = (props: IPropsApprovalFlowEditor) => {
 		}
 
 		return () => x.off()
-	}, [__namespace, usersApi, props.value])
-
-	useEffect(() => props.onChange(toJS(x.raw_data)), [x.raw_data])
+	}, [__namespace, usersApi])
 
 	const props_detail: IPropsDetail = {
 		namespace: __namespace,
