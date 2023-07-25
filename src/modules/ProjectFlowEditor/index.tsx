@@ -1,7 +1,8 @@
-import { useDynamicList, useMemoizedFn } from 'ahooks'
+import { useDynamicList, useMemoizedFn, useAsyncEffect } from 'ahooks'
+import to from 'await-to-js'
 import { cx } from 'classix'
 import { nanoid } from 'nanoid'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 import { EditWrapper } from '@/components'
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
@@ -13,12 +14,14 @@ import useStyles from './styles'
 import type { IEditWrapper } from '@/components'
 import type { IPropsProjectFlowEditor } from './types'
 import type { DragEndEvent } from '@dnd-kit/core'
+import type { SelectProps } from 'antd'
 
 const preset_data = [{ id: nanoid(), title: '未设置', items: [{ id: nanoid(), title: '未设置' }] }]
 
 const Index = (props: IPropsProjectFlowEditor) => {
-	const { value } = props
+	const { formsApi, value } = props
 	const { classes } = useStyles()
+	const [form_options, setFormOptions] = useState<SelectProps['options']>([])
 	const data = value?.length ? value : preset_data
 	const { list, getKey, move, insert: _insert, remove: _remove, replace: _replace } = useDynamicList(data)
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }))
@@ -26,6 +29,14 @@ const Index = (props: IPropsProjectFlowEditor) => {
 	useEffect(() => {
 		props.onChange(list)
 	}, [list])
+
+	useAsyncEffect(async () => {
+		const [err, res] = await to<SelectProps['options']>(window.$axios.get(formsApi))
+
+		if (err) return
+
+		setFormOptions(res)
+	}, [formsApi])
 
 	const insert = useMemoizedFn(_insert)
 	const remove = useMemoizedFn(_remove)
@@ -51,6 +62,7 @@ const Index = (props: IPropsProjectFlowEditor) => {
 				<SortableContext items={list} strategy={rectSortingStrategy}>
 					{list.map((item, index) => (
 						<Row
+							form_options={form_options}
 							row={item}
 							{...{ index, sensors, insert, remove, replace, getOnDragEnd }}
 							key={getKey(index)}

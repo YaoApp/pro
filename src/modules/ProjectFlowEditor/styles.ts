@@ -49,7 +49,6 @@ export default makeStyles()({
 				},
 
 				'.item_wrap': {
-					height: 30,
 					marginBottom: 3,
 
 					'&:last-child': {
@@ -61,17 +60,34 @@ export default makeStyles()({
 					},
 
 					'.left_input_wrap': {
-						width: 'calc(100% - 90px - 9px)',
-						padding: '0 9px',
+						height: '30px',
+						width: 'calc(100% - 120px - 12px)',
 						backgroundColor: 'var(--color_bg_nav)',
 						borderRadius: 'var(--radius)',
 
 						'.input_item_title': {
-							width: 80
+							width: '100px',
+							padding: '0 9px'
 						},
 
 						'.input_item_pathname': {
 							width: 'calc(100% - 100px)'
+						}
+					},
+
+					'.select_form': {
+						width: 'calc(100% - 100px)',
+
+						'.xgen-select-selector': {
+							height: '30px',
+
+							'.xgen-select-selection-placeholder': {
+								height: '30px',
+								lineHeight: '30px',
+							},
+							'.xgen-select-selection-item': {
+								lineHeight: '30px'
+							}
 						}
 					},
 
@@ -84,6 +100,10 @@ export default makeStyles()({
 							marginLeft: 3,
 							backgroundColor: 'var(--color_bg_nav)'
 						}
+					},
+
+					'.desc_wrap': {
+                                    fontSize: '12px'
 					}
 				}
 			}

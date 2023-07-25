@@ -15,7 +15,7 @@ import type { InputProps } from 'antd'
 import type { DragEndEvent } from '@dnd-kit/core'
 
 const Index = (props: IPropsRow) => {
-	const { row, index, sensors, insert, remove, replace, getOnDragEnd } = props
+	const { form_options, row, index, sensors, insert, remove, replace, getOnDragEnd } = props
 	const { id, title, items } = row
 	const { list, getKey, move, insert: _insert, remove: _remove, replace: _replace } = useDynamicList(items)
 	const { listeners, setNodeRef, transform, transition } = useSortable({ id })
@@ -79,9 +79,11 @@ const Index = (props: IPropsRow) => {
 						<SortableContext items={list} strategy={verticalListSortingStrategy}>
 							{list.map((item, index) => (
 								<Node
+									form_options={form_options}
 									id={item.id}
 									title={item.title}
 									pathname={item.pathname}
+									desc={item.desc}
 									index={index}
 									insert={insertNode}
 									remove={removeNode}
