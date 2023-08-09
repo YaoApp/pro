@@ -7,7 +7,6 @@ import { useLayoutEffect } from 'react'
 import { EditWrapper } from '@/components'
 
 import { Detail } from './components'
-import data from './data'
 import { useGraph } from './hooks'
 import useStyles from './styles'
 import { PortalProvider } from './utils/registerNodes'
@@ -21,16 +20,10 @@ const Index = (props: IPropsApprovalFlowEditor) => {
 	const { classes } = useStyles()
 
 	useLayoutEffect(() => {
-		x.init(__namespace, usersApi, onChange)
-
-		if (props.value) {
-			x.raw_data = props.value?.length > 1 ? props.value : data
-		} else {
-			x.raw_data = data
-		}
+		x.init(__namespace, props.value, usersApi, onChange)
 
 		return () => x.off()
-	}, [__namespace, usersApi])
+	}, [props.value, __namespace, usersApi])
 
 	const props_detail: IPropsDetail = {
 		namespace: __namespace,

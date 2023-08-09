@@ -1,3 +1,4 @@
+import { deepEqual } from 'fast-equals'
 import { makeAutoObservable, reaction, toJS } from 'mobx'
 import { injectable } from 'tsyringe'
 
@@ -30,34 +31,39 @@ export default class Index {
 	}
 
 	init(value: IPropsProjectFlowEditor['value'], onChange: IEditComponent['onChange']) {
-		this.data = value?.data?.length
-			? value.data
-			: [
-					[
+		if (!deepEqual(this.data, value?.data)) {
+			this.data = value?.data?.length
+				? value.data
+				: [
+						[
+							{
+								type: 'Title',
+								label: '未设置'
+							}
+						]
+				  ]
+		}
+
+		if (!deepEqual(this.actions, value?.actions)) {
+			this.actions.left = value?.actions?.left?.length
+				? value.actions.left
+				: [
 						{
-							type: 'Title',
-							label: '未设置'
+							type: 'api',
+							text: '未设置',
+							api: ''
 						}
-					]
-			  ]
-		this.actions.left = value?.actions?.left?.length
-			? value.actions.left
-			: [
-					{
-						type: 'api',
-						text: '未设置',
-						api: ''
-					}
-			  ]
-		this.actions.right = value?.actions?.right?.length
-			? value.actions.right
-			: [
-					{
-						type: 'api',
-						text: '未设置',
-						api: ''
-					}
-			  ]
+				  ]
+			this.actions.right = value?.actions?.right?.length
+				? value.actions.right
+				: [
+						{
+							type: 'api',
+							text: '未设置',
+							api: ''
+						}
+				  ]
+		}
 
 		this.trigger = onChange
 	}

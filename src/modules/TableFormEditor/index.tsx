@@ -21,7 +21,7 @@ const Index = (props: IPropsProjectFlowEditor) => {
 
 	useLayoutEffect(() => {
 		x.init(value, onChange)
-	}, [])
+	}, [value])
 
 	const onTd = useMemoizedFn((tr_index: number, td_index: number) => {
 		x.detail_type = 'tableform'
