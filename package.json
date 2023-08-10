@@ -14,6 +14,8 @@
             "build:xgen": "cross-env MODE=prod rspack build --config rspack.output.js"
       },
       "dependencies": {
+            "@editorjs/editorjs": "^2.26.4",
+            "@yaoapp/editorjs_plugins": "workspace:*",
             "@antv/layout": "^0.3.20",
             "@antv/x6": "^2.9.4",
             "@antv/x6-plugin-scroller": "^2.0.8",

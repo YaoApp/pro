@@ -113,6 +113,76 @@ export default makeStyles()({
 					marginLeft: 12
 				}
 			}
+		},
+
+		'.richtext_wrap': {
+			borderRadius: 'var(--radius)',
+			padding: '6px 12px',
+
+			'&.has_height': {
+				backgroundColor: 'var(--color_bg_nav)',
+
+				'.codex-editor': {
+					'.codex-editor__redactor': {
+						height: 360,
+						overflow: 'scroll'
+					}
+				}
+			},
+
+			'.codex-editor': {
+				fontSize: 12,
+
+				'.codex-editor__redactor': {
+					paddingBottom: '0px !important',
+					marginLeft: 0,
+					marginRight: 0,
+
+					'.ce-block__content': {
+						maxWidth: '100%'
+					}
+				},
+
+				'.ce-paragraph[data-placeholder]:empty::before': {
+					color: 'rgba(var(--color_text_rgb), 0.3)'
+				},
+
+				'.ce-toolbar': {
+					'&__plus': {
+						width: 18,
+						height: 18,
+						borderRadius: 3,
+						paddingRight: 0
+					},
+
+					'&__settings-btn': {
+						width: 18,
+						height: 18,
+						borderRadius: 3,
+						marginLeft: 0
+					},
+
+					'.ce-popover': {
+						zIndex: 1000
+					}
+				},
+
+				'.image-tool__image-picture': {
+					borderRadius: 6
+				},
+
+				'.image-tool__caption': {
+					padding: 0,
+					border: 'none',
+					boxShadow: 'none',
+					textAlign: 'center',
+
+					'&::before': {
+						width: '100%',
+						textAlign: 'center'
+					}
+				}
+			}
 		}
 	}
 })

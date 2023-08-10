@@ -19,6 +19,10 @@ export default {
 				{
 					type: 'Radio',
 					label: '单选'
+				},
+				{
+					type: 'RichText',
+					label: '富文本'
 				}
 			]
 		},
@@ -75,6 +79,12 @@ export default {
 				type: 'Array<string>',
 				label: '可选项'
 			}
+		},
+		RichText: {
+			value: {
+				type: 'richtext',
+				label: '富文本内容'
+			}
 		}
 	},
 	action: {
@@ -110,7 +120,7 @@ export default {
 		},
 		info: {
 			info: {
-				type: 'textarea',
+				type: 'richtext',
 				label: '帮助信息'
 			}
 		}

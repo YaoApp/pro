@@ -1,7 +1,9 @@
 import { useMemoizedFn } from 'ahooks'
 import { Checkbox, Radio } from 'antd'
 import { cx } from 'classix'
-import { Fragment, useMemo } from 'react'
+import { useMemo } from 'react'
+
+import RichText from '../RichText'
 
 import type { IPropsTd } from '../../types'
 import type { PropsWithChildren } from 'react'
@@ -99,6 +101,16 @@ const Index = (props: IPropsTd) => {
 							}))}
 						></RadioGroup>
 					</div>
+				</Wrapper>
+			</td>
+		)
+	}
+
+	if (type === 'RichText') {
+		return (
+			<td {...props_td}>
+				<Wrapper td={td}>
+					<RichText autoHeight value={value}></RichText>
 				</Wrapper>
 			</td>
 		)

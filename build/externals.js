@@ -25,10 +25,13 @@ module.exports = [
 	'@dnd-kit/sortable',
 	'@dnd-kit/utilities',
 
+	'@editorjs/editorjs',
+
 	'antd',
 	'ahooks',
 
-	'@yaoapp/storex'
+	'@yaoapp/storex',
+	'@yaoapp/editorjs_plugins'
 ].reduce((total, item) => {
 	total[item] = item
 

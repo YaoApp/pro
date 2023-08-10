@@ -41,6 +41,8 @@ const Index = (props: IPropsDetail) => {
 		return current_action_item[key]
 	})
 
+	console.log(all_metadata)
+
 	return (
 		<div className='detail_wrap flex flex_column'>
 			<div className='header_wrap w_100 border_box flex justify_between align_center'>

@@ -38,7 +38,15 @@ export namespace TFE {
 	}
 
 	export interface Metadata {
-		type: 'select' | 'string' | 'number' | 'boolean' | 'any' | 'Array<string>' | 'textarea'
+		type:
+			| 'select'
+			| 'string'
+			| 'number'
+			| 'boolean'
+			| 'any'
+			| 'Array<string>'
+			| 'textarea'
+			| 'richtext'
 		label: string
 		options?: Array<{ type: string; label: string }>
 	}

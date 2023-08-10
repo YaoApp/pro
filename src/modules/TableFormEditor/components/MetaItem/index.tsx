@@ -1,7 +1,9 @@
+import { useMemoizedFn } from 'ahooks'
 import { Input, InputNumber, Radio, Select } from 'antd'
 
-import type { IPropsMetaItem } from '../../types'
+import RichText from '../RichText'
 
+import type { IPropsMetaItem } from '../../types'
 const { Option } = Select
 const { Group } = Radio
 const { TextArea } = Input
@@ -44,6 +46,16 @@ const Index = (props: IPropsMetaItem) => {
 
 	if (v.type === 'textarea') {
 		return <TextArea rows={6} value={value} onChange={({ target: { value } }) => onChange(k, value)}></TextArea>
+	}
+
+	const onChangeRichText = useMemoizedFn((value) => onChange(k, value))
+
+	if (v.type === 'richtext') {
+		return <RichText value={value} onChange={onChangeRichText}></RichText>
+	}
+
+	if (v.type === 'td_richtext') {
+		return <RichText autoHeight value={value} onChange={onChangeRichText}></RichText>
 	}
 
 	return null
