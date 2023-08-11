@@ -148,6 +148,11 @@ export default makeStyles()({
 				},
 
 				'.ce-toolbar': {
+					'&__actions': {
+						left: '-48px',
+						right: 'unset'
+					},
+
 					'&__plus': {
 						width: 18,
 						height: 18,
