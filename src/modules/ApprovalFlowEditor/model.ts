@@ -1,11 +1,9 @@
-import { deepEqual } from 'fast-equals'
 import { makeAutoObservable, reaction, toJS } from 'mobx'
 import { nanoid } from 'nanoid'
 import { injectable } from 'tsyringe'
 
 import { graphUpdater, removeBy } from '@/utils'
 
-import data from './data'
 import Services from './services'
 import { transform } from './utils'
 
@@ -27,24 +25,16 @@ export default class Index {
 		makeAutoObservable(this, {}, { autoBind: true })
 	}
 
-	init(namespace: string, value: AFE.RawData, api: string, onChange: IEditComponent['onChange']) {
+	init(namespace: string, api: string, onChange: IEditComponent['onChange']) {
 		window[`${namespace}_AFE`] = {
 			emitter: window.$app.Event
-		}
-
-		if (!deepEqual(this.raw_data, value)) {
-			if (value) {
-				this.raw_data = value?.length > 1 ? value : data
-			} else {
-				this.raw_data = data
-			}
 		}
 
 		this.namespace = namespace
 		this.onChange = onChange
 
-		this.on()
 		this.reactions()
+		this.on()
 
 		this.services.init(api)
 	}

@@ -1,5 +1,6 @@
 import { useMemoizedFn } from 'ahooks'
 import { cx } from 'classix'
+import { deepEqual } from 'fast-equals'
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { useLayoutEffect } from 'react'
@@ -7,6 +8,7 @@ import { useLayoutEffect } from 'react'
 import { EditWrapper } from '@/components'
 
 import { Detail } from './components'
+import data from './data'
 import { useGraph } from './hooks'
 import useStyles from './styles'
 import { PortalProvider } from './utils/registerNodes'
@@ -17,10 +19,18 @@ import type { IPropsApprovalFlowEditor, IPropsDetail } from './types'
 const Index = (props: IPropsApprovalFlowEditor) => {
 	const { __namespace, usersApi, onChange } = props
 	const { x, c } = useGraph(__namespace)
-	const { classes } = useStyles()
+      const { classes } = useStyles()
 
 	useLayoutEffect(() => {
-		x.init(__namespace, props.value, usersApi, onChange)
+            x.init(__namespace, usersApi, onChange)
+            
+		if (!deepEqual(x.raw_data, props.value)) {
+			if (props.value) {
+				x.raw_data = props.value?.length > 1 ? props.value : data
+			} else {
+				x.raw_data = data
+			}
+		}
 
 		return () => x.off()
 	}, [props.value, __namespace, usersApi])
