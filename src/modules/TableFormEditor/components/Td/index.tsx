@@ -25,7 +25,7 @@ const Wrapper = window.$app.memo(({ children, td }: PropsWithChildren & { td: IP
 
 const Index = (props: IPropsTd) => {
 	const { td, tr_index, td_index, current_td_index, onTd } = props
-      const { type, label, value, rowSpan, colSpan, props: td_props } = td
+	const { type, label, value, rowSpan, colSpan, props: td_props } = td
 
 	const active = useMemo(() => {
 		return current_td_index.tr_index === tr_index && current_td_index.td_index === td_index
@@ -116,8 +116,8 @@ const Index = (props: IPropsTd) => {
 						<span className='value' style={{ flex: 1 }}>
 							<TextArea
 								value={value}
-								readOnly
 								autoSize
+								readOnly
 								style={{ width: '100%', resize: 'none' }}
 							></TextArea>
 						</span>
