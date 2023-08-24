@@ -1,5 +1,5 @@
 import { useMemoizedFn } from 'ahooks'
-import { Checkbox, Radio } from 'antd'
+import { Checkbox, Radio, Input } from 'antd'
 import { cx } from 'classix'
 import { useMemo } from 'react'
 
@@ -10,6 +10,7 @@ import type { PropsWithChildren } from 'react'
 
 const { Group: CheckBoxGroup } = Checkbox
 const { Group: RadioGroup } = Radio
+const { TextArea } = Input
 
 const Wrapper = window.$app.memo(({ children, td }: PropsWithChildren & { td: IPropsTd['td'] }) => {
 	return (
@@ -24,7 +25,7 @@ const Wrapper = window.$app.memo(({ children, td }: PropsWithChildren & { td: IP
 
 const Index = (props: IPropsTd) => {
 	const { td, tr_index, td_index, current_td_index, onTd } = props
-	const { type, label, value, rowSpan, colSpan, props: td_props } = td
+      const { type, label, value, rowSpan, colSpan, props: td_props } = td
 
 	const active = useMemo(() => {
 		return current_td_index.tr_index === tr_index && current_td_index.td_index === td_index
@@ -100,6 +101,26 @@ const Index = (props: IPropsTd) => {
 								value: item
 							}))}
 						></RadioGroup>
+					</div>
+				</Wrapper>
+			</td>
+		)
+	}
+
+	if (type === 'TextArea') {
+		return (
+			<td {...props_td}>
+				<Wrapper td={td}>
+					<div className='w_100 flex align_center'>
+						<span className='label'>{label}</span>
+						<span className='value' style={{ flex: 1 }}>
+							<TextArea
+								value={value}
+								readOnly
+								autoSize
+								style={{ width: '100%', resize: 'none' }}
+							></TextArea>
+						</span>
 					</div>
 				</Wrapper>
 			</td>

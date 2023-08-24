@@ -21,6 +21,10 @@ export default {
 					label: '单选'
 				},
 				{
+					type: 'TextArea',
+					label: '文本段落'
+				},
+				{
 					type: 'RichText',
 					label: '富文本'
 				}
@@ -78,6 +82,16 @@ export default {
 			props_options: {
 				type: 'Array<string>',
 				label: '可选项'
+			}
+		},
+            TextArea: {
+                  value: {
+                        type: 'textarea',
+                        label: '默认值'
+                  },
+			props_maxLength: {
+				type: 'number',
+				label: '长度限制'
 			}
 		},
 		RichText: {

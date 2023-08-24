@@ -4,6 +4,7 @@ import { Input, InputNumber, Radio, Select } from 'antd'
 import RichText from '../RichText'
 
 import type { IPropsMetaItem } from '../../types'
+
 const { Option } = Select
 const { Group } = Radio
 const { TextArea } = Input

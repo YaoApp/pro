@@ -8,6 +8,7 @@ import metadata from '../../metadata'
 import MetaItem from '../MetaItem'
 
 import type { IPropsDetail } from '../../types'
+
 const Index = (props: IPropsDetail) => {
 	const {
 		detail_type,
@@ -40,8 +41,6 @@ const Index = (props: IPropsDetail) => {
 		// @ts-ignore
 		return current_action_item[key]
 	})
-
-	console.log(all_metadata)
 
 	return (
 		<div className='detail_wrap flex flex_column'>
