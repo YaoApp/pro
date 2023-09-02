@@ -1,5 +1,6 @@
 import { useMemoizedFn } from 'ahooks'
 import { cx } from 'classix'
+import { useMemo, MouseEvent } from 'react'
 
 import { node_memo } from '@/utils/common'
 import { X } from '@phosphor-icons/react'
@@ -7,16 +8,17 @@ import { X } from '@phosphor-icons/react'
 import { MApprovalType } from '../../utils'
 import useStyles from './styles'
 
-import type { MouseEvent } from 'react'
-import type { IPropsApprovalItem, AFE } from '../../types'
+import type { IPropsApprovalItem, AFE, Options } from '../../types'
 
 const Index = (props: IPropsApprovalItem) => {
 	const { node } = props
 	const { classes } = useStyles()
-	const { label, type, namespace } = node.getData<AFE.RawDataItem & { namespace: string }>()
+	const { label, type, namespace, launcher, handler } = node.getData<
+		AFE.RawDataItem & { namespace: string } & Options
+	>()
 	const emitter = window[`${namespace}_AFE`].emitter
 
-	const Icon = MApprovalType[type].icon
+	const node_info = useMemo(() => MApprovalType({ launcher, handler })[type], [type, launcher, handler])
 
 	const remove = useMemoizedFn((e: MouseEvent<HTMLSpanElement>) => {
 		e.stopPropagation()
@@ -41,8 +43,8 @@ const Index = (props: IPropsApprovalItem) => {
 				)}
 			>
 				<div className='flex align_center'>
-					<Icon className='mr_2' size={12} weight='fill'></Icon>
-					<span className='text'> {MApprovalType[type].text}</span>
+					{node_info.icon}
+					<span className='text'> {node_info.text}</span>
 				</div>
 				{type !== 'initor' && (
 					<span

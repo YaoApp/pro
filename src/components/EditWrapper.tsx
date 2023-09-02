@@ -5,7 +5,9 @@ import type { InputProps } from 'antd'
 import type { FC } from 'react'
 import type { Component } from '@/types'
 
-export interface IEditWrapper extends InputProps, Component.PropsEditComponent {}
+export interface IEditWrapper extends InputProps, Component.PropsEditComponent {
+	id: string
+}
 
 export interface IEditComponent extends Omit<IEditWrapper, '__bind' | '__name' | 'itemProps'> {
 	value: any

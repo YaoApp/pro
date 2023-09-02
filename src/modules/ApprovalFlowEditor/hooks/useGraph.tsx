@@ -8,7 +8,11 @@ import { Scroller } from '@antv/x6-plugin-scroller'
 import { AddButton } from '../components'
 import Model from '../model'
 
-export default (namespace: string) => {
+import type { IPropsApprovalFlowEditor } from '../types'
+
+interface Options extends Pick<IPropsApprovalFlowEditor, 'launcher' | 'handler'> {}
+
+export default (namespace: string, { handler }: Options) => {
 	const [x] = useState(() => container.resolve(Model))
 
 	const c = useRef<HTMLDivElement>(null)
@@ -29,7 +33,9 @@ export default (namespace: string) => {
 				const content = selectors.foContent as HTMLDivElement
 
 				if (content) {
-					createRoot(content).render(<AddButton {...{ namespace, source, target }} id={edge.id} />)
+					createRoot(content).render(
+						<AddButton {...{ namespace, source, target, handler }} id={edge.id} />
+					)
 				}
 			}
 		})

@@ -21,13 +21,23 @@ export namespace AFE {
 export interface IPropsApprovalFlowEditor extends IEditComponent {
 	usersApi: string
 	value: AFE.RawData
+	launcher?: {
+		title?: string
+		icon?: string
+	}
+	handler?: {
+		title?: string
+		icon?: string
+	}
 }
+
+export interface Options extends Pick<IPropsApprovalFlowEditor, 'launcher' | 'handler'> {}
 
 export interface IPropsApprovalItem {
 	node: Node
 }
 
-export interface IPropsAddButton {
+export interface IPropsAddButton extends Pick<IPropsApprovalFlowEditor, 'handler'> {
 	namespace: string
 	id: string
 	source: Edge.TerminalData
@@ -38,5 +48,7 @@ export interface IPropsDetail {
 	namespace: string
 	options: Model['services']['user_options']
 	current_item: Model['current_item']
+	launcher: IPropsApprovalFlowEditor['launcher']
+	handler: IPropsApprovalFlowEditor['handler']
 	hide: () => void
 }

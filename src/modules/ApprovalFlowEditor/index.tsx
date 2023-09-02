@@ -17,28 +17,31 @@ import type { IEditWrapper } from '@/components'
 import type { IPropsApprovalFlowEditor, IPropsDetail } from './types'
 
 const Index = (props: IPropsApprovalFlowEditor) => {
-	const { __namespace, usersApi, onChange } = props
-	const { x, c } = useGraph(__namespace)
-      const { classes } = useStyles()
+	const { id, __namespace, usersApi, launcher, handler, onChange } = props
+	const namespace = __namespace + id
+	const { x, c } = useGraph(namespace, { launcher, handler })
+	const { classes } = useStyles()
 
 	useLayoutEffect(() => {
-            x.init(__namespace, usersApi, onChange)
-            
+		x.init(namespace, usersApi, { launcher, handler }, onChange)
+
 		if (!deepEqual(x.raw_data, props.value)) {
 			if (props.value) {
-				x.raw_data = props.value?.length > 1 ? props.value : data
+				x.raw_data = props.value?.length > 1 ? props.value : data()
 			} else {
-				x.raw_data = data
+				x.raw_data = data()
 			}
 		}
 
 		return () => x.off()
-	}, [props.value, __namespace, usersApi])
+	}, [props.value, id, __namespace, usersApi])
 
 	const props_detail: IPropsDetail = {
-		namespace: __namespace,
+		namespace,
 		options: toJS(x.services.user_options),
 		current_item: toJS(x.current_item),
+		launcher,
+		handler,
 		hide: useMemoizedFn(() => (x.visible_detail = false))
 	}
 

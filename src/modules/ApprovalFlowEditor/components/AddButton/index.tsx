@@ -3,6 +3,7 @@ import { ConfigProvider, Popover } from 'antd'
 import { cx } from 'classix'
 import { useState } from 'react'
 
+import { Icon } from '@/components'
 import { Plus, User } from '@phosphor-icons/react'
 
 import useStyles from './styles'
@@ -10,7 +11,7 @@ import useStyles from './styles'
 import type { IPropsAddButton } from '../../types'
 
 const Index = (props: IPropsAddButton) => {
-	const { namespace, id } = props
+	const { namespace, id, handler } = props
 	const { classes } = useStyles()
 	const [open, setOpen] = useState(false)
 	const emitter = window[`${namespace}_AFE`].emitter
@@ -34,9 +35,13 @@ const Index = (props: IPropsAddButton) => {
 					onClick={insert}
 				>
 					<div className='icon_wrap flex justify_center align_center'>
-						<User size={18} weight='fill'></User>
+						{handler?.icon ? (
+							<Icon name={handler?.icon} size={16}></Icon>
+						) : (
+							<User size={18} weight='fill'></User>
+						)}
 					</div>
-					<span className='text'>审批人</span>
+					<span className='text'>{handler?.title ?? '审批人'}</span>
 				</div>
 			</div>
 		</div>

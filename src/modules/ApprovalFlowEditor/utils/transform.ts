@@ -6,12 +6,16 @@ import type { AFE } from '../types'
 
 const dagre = new DagreLayout({
 	type: 'dagre',
-      rankdir: 'TB',
+	rankdir: 'TB',
 	ranksep: 26,
 	nodeSize: [210, 72]
 })
 
-export default (namespace: string, raw_data: AFE.RawData) => {
+import type { IPropsApprovalFlowEditor } from '../types'
+
+interface Options extends Pick<IPropsApprovalFlowEditor, 'launcher' | 'handler'> {}
+
+export default (namespace: string, raw_data: AFE.RawData, { launcher, handler }: Options) => {
 	const flow_data: AFE.FlowData = { nodes: [], edges: [] }
 
 	raw_data.forEach((item, index) => {
@@ -21,7 +25,7 @@ export default (namespace: string, raw_data: AFE.RawData) => {
 		flow_data.nodes.push({
 			shape: 'Approvaltem',
 			id: source,
-			data: { ...item, namespace }
+			data: { ...item, namespace, launcher, handler }
 		})
 
 		if (flow_data.edges.length) {

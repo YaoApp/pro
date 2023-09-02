@@ -8,13 +8,14 @@ import Services from './services'
 import { transform } from './utils'
 
 import type { Graph } from '@antv/x6'
-import type { AFE } from './types'
+import type { AFE, Options } from './types'
 import type { IEditComponent } from '@/components'
 
 @injectable()
 export default class Index {
 	graph = {} as Graph
 	namespace = ''
+	options = {} as Options
 	raw_data = [] as AFE.RawData
 	flow_data = {} as AFE.FlowData
 	visible_detail = false
@@ -25,12 +26,13 @@ export default class Index {
 		makeAutoObservable(this, {}, { autoBind: true })
 	}
 
-	init(namespace: string, api: string, onChange: IEditComponent['onChange']) {
+      init(namespace: string, api: string, options: Options, onChange: IEditComponent[ 'onChange' ]) {
 		window[`${namespace}_AFE`] = {
 			emitter: window.$app.Event
 		}
 
 		this.namespace = namespace
+		this.options = options
 		this.onChange = onChange
 
 		this.reactions()
@@ -55,7 +57,7 @@ export default class Index {
 	}
 
 	private transform(v: AFE.RawData) {
-		return transform(this.namespace, v)
+		return transform(this.namespace, v, this.options)
 	}
 
 	private getFlow(v: AFE.RawData) {

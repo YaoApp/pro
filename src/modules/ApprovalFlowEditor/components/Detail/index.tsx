@@ -11,7 +11,7 @@ import type { IPropsDetail } from '../../types'
 import type { SelectProps } from 'antd'
 
 const Index = (props: IPropsDetail) => {
-	const { namespace, options, current_item, hide } = props
+	const { namespace, options, current_item, launcher, handler, hide } = props
 	const { classes } = useStyles()
 	const emitter = window[`${namespace}_AFE`].emitter
 
@@ -23,7 +23,10 @@ const Index = (props: IPropsDetail) => {
 		<div className={classes.local}>
 			<div className={cx('w_100 h_100 border_box flex flex_column', classes.content)}>
 				<div className='title_wrap w_100 border_box flex justify_between align_center'>
-					<span className='title'>设置{MApprovalType[current_item.type].text}</span>
+					<span className='title'>
+						设置
+						{launcher?.title ?? MApprovalType({ launcher, handler })[current_item.type].text}
+					</span>
 					<div className='icon_wrap flex align_center justify_center cursor_point' onClick={hide}>
 						<X size={16}></X>
 					</div>
@@ -33,7 +36,10 @@ const Index = (props: IPropsDetail) => {
 						className='w_100 select'
 						options={options}
 						value={current_item.uid !== -1 ? current_item.uid : undefined}
-						placeholder={`选择${MApprovalType[current_item.type].text}`}
+						placeholder={`选择${
+							launcher?.title ??
+							MApprovalType({ launcher, handler })[current_item.type].text
+						}`}
 						onSelect={onSelect}
 					></Select>
 				</div>
