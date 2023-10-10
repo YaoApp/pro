@@ -1,8 +1,9 @@
 import { useDynamicList, useMemoizedFn, useAsyncEffect } from 'ahooks'
 import to from 'await-to-js'
 import { cx } from 'classix'
+import { debounce } from 'lodash-es'
 import { nanoid } from 'nanoid'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState, useEffect } from 'react'
 
 import { EditWrapper } from '@/components'
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core'
@@ -35,7 +36,8 @@ const Index = (props: IPropsProjectFlowEditor) => {
 	} = useDynamicList(data)
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }))
 
-	useEffect(() => {
+	useLayoutEffect(() => {
+		if (!value) return
 		if (loaded) return
 
 		resetList(value?.length ? value : preset_data)
@@ -57,7 +59,7 @@ const Index = (props: IPropsProjectFlowEditor) => {
 
 	const insert = useMemoizedFn(_insert)
 	const remove = useMemoizedFn(_remove)
-	const replace = useMemoizedFn(_replace)
+	const replace = useMemoizedFn(debounce(_replace, 450))
 
 	const getOnDragEnd = useMemoizedFn(
 		(_list: Array<any>, _move: (oldIndex: number, newIndex: number) => void) =>

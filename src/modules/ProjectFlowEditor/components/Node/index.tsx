@@ -41,14 +41,14 @@ const Index = (props: IPropsNode) => {
 					<Input
 						className='input_item_title custom_input'
 						placeholder='输入节点名称'
-						maxLength={6}
+                                    maxLength={ 6 }
 						value={title}
 						onChange={onChangeTitle}
 					></Input>
 					<Select
 						className='select_form'
 						placeholder='选择表单'
-						bordered={false}
+                                    bordered={ false }
 						options={form_options}
 						value={pathname}
 						onSelect={onChangePathname}
