@@ -24,7 +24,6 @@ const Index = (props: IPropsProjectFlowEditor) => {
 	const { classes } = useStyles()
 	const [form_options, setFormOptions] = useState<SelectProps['options']>([])
 	const [loaded, setLoaded] = useState(false)
-	const data = value?.length ? value : preset_data
 	const {
 		list,
 		resetList,
@@ -33,7 +32,7 @@ const Index = (props: IPropsProjectFlowEditor) => {
 		insert: _insert,
 		remove: _remove,
 		replace: _replace
-	} = useDynamicList(data)
+	} = useDynamicList<any>()
 	const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 8 } }))
 
 	useLayoutEffect(() => {
@@ -43,11 +42,13 @@ const Index = (props: IPropsProjectFlowEditor) => {
 		resetList(value?.length ? value : preset_data)
 
 		setLoaded(true)
-	}, [value])
+	}, [value, loaded])
 
 	useEffect(() => {
+		if (!loaded) return
+
 		props.onChange(list)
-	}, [list])
+	}, [list, loaded])
 
 	useAsyncEffect(async () => {
 		const [err, res] = await to<SelectProps['options']>(window.$axios.get(formsApi))
